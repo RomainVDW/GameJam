@@ -21,4 +21,9 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+    }
 }
