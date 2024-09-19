@@ -6,5 +6,5 @@ public interface IHealth
 {
     public void TakeDamage(float Damage);
     public void OnDeath();
-    public void OnHeal();
+    public void OnHeal(float Heal);
 }
