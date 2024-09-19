@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     }
     public static ELaserState s_laserState;
     private float _laserPhaseTimer = 0;
+    public float LaserPhaseTimer
+    {
+        get { return _laserPhaseTimer; }
+    }
     [SerializeField] private float _laserDamagingPhaseTimerMax = 30;
     [SerializeField] private float _laserHealingPhaseTimerMax = 10;
 
