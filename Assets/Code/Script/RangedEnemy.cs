@@ -13,7 +13,8 @@ public class RangedEnemy : EnemyParent
     
     protected override void Fire()
     {
+        
         print("Fire!");
-        _laser.MakeLaser();
+        _laser.FireLaser();
     }
 }

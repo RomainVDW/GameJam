@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BouclierHeal : MonoBehaviour, IHealth
 {
-    private float _health;
+    [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
 
     private bool _canTakeDamage;
@@ -19,8 +19,9 @@ public class BouclierHeal : MonoBehaviour, IHealth
 
     public void TakeDamage(float damage)
     {
+   
         if (!_canTakeDamage) return;
-
+  
         _health -= damage;
         StartCoroutine(TemporaryInvincible());
         UpdateStatus();
@@ -55,11 +56,11 @@ public class BouclierHeal : MonoBehaviour, IHealth
     public IEnumerator TemporaryInvincible()
     {
         if (!_canTakeDamage) yield break;
-        else
-        {
-            _canTakeDamage = false;
-            yield return new WaitForSeconds(_invincibilityDuration);
-            _canTakeDamage = true;
-        }
+    
+        
+        _canTakeDamage = false;
+        yield return new WaitForSeconds(_invincibilityDuration);
+        _canTakeDamage = true;
+        
     }
 }

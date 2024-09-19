@@ -1,15 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Laser : MonoBehaviour
 {
     [SerializeField] private float _laserMaxLength;
     [SerializeField] private float _laserDamage;
-    [SerializeField] private float _layerMask;
+    [SerializeField] private int _layerMask;
+    [SerializeField] private LineRenderer _lineRenderer;
     
-    private Vector3 pointA;
-    private Vector3 pointB;
-    
+    public UnityEvent<Vector3,Vector3,LineRenderer> OnFireLaser;
+    public UnityEvent OnMakeLaser;
     public void HealMode(IHealth healthFunction)
     {
         healthFunction.Heal(1);
@@ -22,15 +23,21 @@ public class Laser : MonoBehaviour
 
     public void MakeLaser()
     {
+        OnMakeLaser.Invoke();
+    }
+    
+    public void FireLaser()
+    {
         RaycastHit hit;
-        pointA = transform.position;
+        Vector3 pointA = transform.position;
+        Vector3 pointB = transform.forward * _laserMaxLength;
         
         if (Physics.Raycast(transform.position, transform.forward, out hit, _laserMaxLength))
         {
-            
+            print( hit.collider.gameObject.name);
+            pointB = hit.point;
             if (hit.collider.CompareTag("Player"))
-            {
-                pointB = hit.point;
+            { ;
                 if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
                 {
                     DamageMode(hit.collider.GetComponent<IHealth>());
@@ -40,19 +47,9 @@ public class Laser : MonoBehaviour
                     HealMode(hit.collider.GetComponent<IHealth>());
                 }
             }
-        }else
-        {
-            pointB = transform.forward * _laserMaxLength;
         }
         
-        print(pointB);
-    }
-
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(pointA, pointB);
+        OnFireLaser.Invoke(pointA, pointB ,_lineRenderer);
     }
 }
 
