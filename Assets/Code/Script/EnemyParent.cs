@@ -4,13 +4,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyParent : MonoBehaviour
+public class EnemyParent : MonoBehaviour, IHealth
 {
-    public float _health;
     private Transform _player;
-
     NavMeshAgent _agent;
-
     private enum EState
     {
         Chasing,
@@ -18,10 +15,13 @@ public class EnemyParent : MonoBehaviour
         Dead
     }
     private EState _state;
-
-    private Rigidbody _rb;
     private Vector3 _moveDirection;
-    public float _speed = 2f;
+    [SerializeField] private float _speed = 2f;
+    [SerializeField] private float _maxHealth;
+    private float _health;
+    [SerializeField] private float _fireRate;
+    private float _fireTimer = 0;
+
     void Start()
     {
         _player = GameManager.s_Instance.Player;
@@ -52,14 +52,14 @@ public class EnemyParent : MonoBehaviour
     {
 
     }
-    void StateChange(EState newState)
-        {
-            StateExit();
-            _state = newState;
-            StateEnter();
-        }
+    private void StateChange(EState newState)
+    {
+        StateExit();
+        _state = newState;
+        StateEnter();
+    }
 
-    void StateEnter()
+    private void StateEnter()
     {
         switch (_state)
         {
@@ -71,18 +71,30 @@ public class EnemyParent : MonoBehaviour
                 break;
         }
     }
-    void StateUpdate()
+    private void StateUpdate()
     {
         switch (_state)
         {
             case EState.Chasing:
                 break;
             case EState.Attacking:
+                _fireTimer += Time.deltaTime;
+                if (_fireTimer >= 1/_fireRate)
+                {
+                    _fireTimer = 0;
+                    Fire();
+                }
                 break;
             case EState.Dead:
                 break;
         }
     }
+
+    protected virtual void Fire()
+    {
+        
+    }
+
     void StateExit()
     {
         switch (_state)
@@ -94,5 +106,35 @@ public class EnemyParent : MonoBehaviour
             case EState.Dead:
                 break;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (_health - damage < _maxHealth)
+        {
+            _health = 0;
+            OnDeath();
+        }
+        else
+        {
+            _health -= damage;
+        }
+    }
+
+    public void Heal(float heal)
+    {
+        if (_health + heal > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+        else
+        {
+            _health += heal;
+        }
+    }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
     }
 }
