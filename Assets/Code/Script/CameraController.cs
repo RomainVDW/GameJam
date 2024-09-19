@@ -20,6 +20,10 @@ public class CameraController : MonoBehaviour
     {
         Vector3 position = Vector3.SmoothDamp(transform.position, _player.transform.position - posOffset + _screenShakeOffset, ref velocity, _smoothPositionTime);
         transform.position = position;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(Screenshake(3, 5));
+        }
     }
 
     public IEnumerator Screenshake(float duration, float magnitude)
