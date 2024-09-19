@@ -9,6 +9,7 @@ public class Laser : MonoBehaviour
     [SerializeField] private int _layerMask;
     [SerializeField] private LineRenderer _lineRenderer;
     
+    public UnityEvent<Vector3,Vector3> HitSheild;
     public UnityEvent<Vector3,Vector3,LineRenderer> OnFireLaser;
     public UnityEvent OnMakeLaser;
     public void HealMode(IHealth healthFunction)
@@ -34,19 +35,22 @@ public class Laser : MonoBehaviour
         
         if (Physics.Raycast(transform.position, transform.forward, out hit, _laserMaxLength))
         {
-            print( hit.collider.gameObject.name);
+            GameObject hitObject = hit.collider.gameObject;
             pointB = hit.point;
-            if (hit.collider.CompareTag("Player"))
-            { ;
+     
                 if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
                 {
                     DamageMode(hit.collider.GetComponent<IHealth>());
+                    if (hitObject.TryGetComponent( out BouclierHeal bouclierHeal))
+                    {
+                        HitSheild.Invoke(hit.point, transform.forward);
+                    }
                 }
                 else if (GameManager.s_laserState == GameManager.ELaserState.Healing)
                 {
                     HealMode(hit.collider.GetComponent<IHealth>());
                 }
-            }
+            
         }
         
         OnFireLaser.Invoke(pointA, pointB ,_lineRenderer);

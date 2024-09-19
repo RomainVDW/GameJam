@@ -7,7 +7,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
     [SerializeField] private float _maxHealth;
 
     private bool _canTakeDamage;
-    [SerializeField] private bool _active = true;
+    public bool Active { get; set; } 
 
     [SerializeField] private float _invincibilityDuration = 2;
 
@@ -34,7 +34,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
 
     public void OnDeath()
     {
-        GameManager.s_Instance.BouclierIsActivated = false;
+        Active = false;
     }
 
     public void UpdateStatus()
@@ -44,14 +44,16 @@ public class BouclierHeal : MonoBehaviour, IHealth
             OnDeath();
         }else if (_health > 0)
         {
-            GameManager.s_Instance.BouclierIsActivated = true;
+            Active = true;
         }
     }
 
-    public void ReflectLaser(Vector3 direction)
+    public void ReflectLaser(Vector3 hitPoint, Vector3  direction )
     {
-        if (!_active) return;
+       // if (!Active) return;
+        Vector3 reflectedDirection = Vector3.Reflect(direction, transform.forward);
     }
+
 
     public IEnumerator TemporaryInvincible()
     {
