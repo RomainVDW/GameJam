@@ -32,7 +32,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         if (!_canTakeDamage)
             return;
-        _camera.Screenshake(3, 5);
         if (_health - damage < _maxHealth)
         {
             _health = 0;
