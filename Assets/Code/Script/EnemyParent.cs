@@ -34,19 +34,21 @@ public class EnemyParent : MonoBehaviour, IHealth
         _agent.SetDestination(_player.transform.position);
         Debug.Log(_state);
         StateUpdate();
-        if (_agent.isStopped)
-        {
-            StateChange(EState.Attacking);
-        }
     }
 
     void Chasing()
     {
-
+        if (_agent.remainingDistance <= _agent.stoppingDistance)
+        {
+            StateChange(EState.Attacking);
+        }
     }
     void Attacking()
     {
-
+        if (_agent.remainingDistance >= _agent.stoppingDistance)
+        {
+            StateChange(EState.Chasing);
+        }
     }
     void Dead()
     {
@@ -76,6 +78,7 @@ public class EnemyParent : MonoBehaviour, IHealth
         switch (_state)
         {
             case EState.Chasing:
+                Chasing();
                 break;
             case EState.Attacking:
                 _fireTimer += Time.deltaTime;
@@ -84,8 +87,10 @@ public class EnemyParent : MonoBehaviour, IHealth
                     _fireTimer = 0;
                     Fire();
                 }
+                Attacking();
                 break;
             case EState.Dead:
+                Dead();
                 break;
         }
     }
