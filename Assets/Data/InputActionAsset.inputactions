@@ -101,6 +101,17 @@
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f97d1fe4-7c63-48bb-94a4-f14338a78e63",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
