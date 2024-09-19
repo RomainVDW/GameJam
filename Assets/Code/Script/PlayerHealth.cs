@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
-    [SerializeField] private float _health;
+    private float _health;
     [SerializeField] private float _maxHealth;
+    private bool _canTakeDamage;
+    [SerializeField] private float _invincibilityDuration = 2;
+
+    private void Start()
+    {
+        _health = _maxHealth;
+    }
 
     public void Heal(float heal)
     {
@@ -21,6 +28,8 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void TakeDamage(float damage)
     {
+        if (!_canTakeDamage)
+            return;
         if (_health - damage < _maxHealth)
         {
             _health = 0;
@@ -29,6 +38,27 @@ public class PlayerHealth : MonoBehaviour, IHealth
         else
         {
             _health -= damage;
+        }
+    }
+    public IEnumerator TemporaryInvincible()
+    {
+        if (!_canTakeDamage) yield break;
+        else
+        {
+            _canTakeDamage = false;
+            yield return new WaitForSeconds(_invincibilityDuration);
+            _canTakeDamage = true;
+        }
+    }
+
+    public IEnumerator TemporaryInvincible(float duration)
+    {
+        if (!_canTakeDamage) yield break;
+        else
+        {
+            _canTakeDamage = false;
+            yield return new WaitForSeconds(duration);
+            _canTakeDamage = true;
         }
     }
 
