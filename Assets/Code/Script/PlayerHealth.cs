@@ -8,10 +8,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
     [SerializeField] private float _maxHealth;
     private bool _canTakeDamage;
     [SerializeField] private float _invincibilityDuration = 2;
+    private CameraController _camera;
 
     private void Start()
     {
         _health = _maxHealth;
+        _camera = Camera.main.GetComponent<CameraController>();
     }
 
     public void Heal(float heal)
@@ -30,6 +32,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         if (!_canTakeDamage)
             return;
+        _camera.Screenshake(3, 5);
         if (_health - damage < _maxHealth)
         {
             _health = 0;
