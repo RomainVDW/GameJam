@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyParent : MonoBehaviour
+public class EnemyParent : MonoBehaviour, IHealth
 {
     public float _health;
     private Transform _player;
@@ -22,6 +22,8 @@ public class EnemyParent : MonoBehaviour
     private Rigidbody _rb;
     private Vector3 _moveDirection;
     public float _speed = 2f;
+    [SerializeField] private float _maxHealth;
+
     void Start()
     {
         _player = GameManager.s_Instance.Player;
@@ -94,5 +96,35 @@ public class EnemyParent : MonoBehaviour
             case EState.Dead:
                 break;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (_health - damage < _maxHealth)
+        {
+            _health = 0;
+            OnDeath();
+        }
+        else
+        {
+            _health -= damage;
+        }
+    }
+
+    public void Heal(float heal)
+    {
+        if (_health + heal > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+        else
+        {
+            _health += heal;
+        }
+    }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
     }
 }
