@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     }
     [SerializeField] private float _laserDamagingPhaseTimerMax = 30;
     [SerializeField] private float _laserHealingPhaseTimerMax = 10;
-
+    public bool BouclierIsActivated { get; set; }
 
     public static GameManager s_Instance
     {

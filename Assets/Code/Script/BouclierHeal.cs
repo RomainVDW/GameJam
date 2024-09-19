@@ -33,7 +33,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
 
     public void OnDeath()
     {
-        _active = false;
+        GameManager.s_Instance.BouclierIsActivated = false;
     }
 
     public void UpdateStatus()
@@ -43,7 +43,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
             OnDeath();
         }else if (_health > 0)
         {
-            _active = true;
+            GameManager.s_Instance.BouclierIsActivated = true;
         }
     }
 

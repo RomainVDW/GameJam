@@ -22,7 +22,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     [SerializeField] private float _fireRate;
     private float _fireTimer = 0;
 
-    void Start()
+    public virtual void Start()
     {
         _player = GameManager.s_Instance.Player;
         _agent = GetComponent<NavMeshAgent>();
