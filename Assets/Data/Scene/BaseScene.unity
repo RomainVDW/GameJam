@@ -122,24 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &43380129 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5811723820366091450, guid: 21721edd034c6ae4fa0a5fd983646194,
-    type: 3}
-  m_PrefabInstance: {fileID: 318077707511250631}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57a823820e831f47bfdc90693c232fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!120 &43380131 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
-    type: 3}
-  m_PrefabInstance: {fileID: 318077707511250631}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &389569206
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,86 +309,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 0dbe7ecb593d29143aab26b8fd04e241, type: 2}
   m_BuildHeightMesh: 0
---- !u!1 &596058268 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 768767841072431667, guid: 21721edd034c6ae4fa0a5fd983646194,
-    type: 3}
-  m_PrefabInstance: {fileID: 318077707511250631}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &596058270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596058268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d2d3611403ff3a4d92889e49e533a67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _laserMaxLength: 10
-  _laserDamage: 0
-  _layerMask: 0
-  _lineRenderer: {fileID: 43380131}
-  HitSheild:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 761318999}
-        m_TargetAssemblyTypeName: BouclierHeal, Assembly-CSharp
-        m_MethodName: ReflectLaser
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnFireLaser:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 13862467005347946, guid: 1795776bb06b31f438a7c7e887d60302,
-          type: 3}
-        m_TargetAssemblyTypeName: DrawLaser, Assembly-CSharp
-        m_MethodName: OnFireLaser
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 43380129}
-        m_TargetAssemblyTypeName: DrawLaser, Assembly-CSharp
-        m_MethodName: OnFireLaser
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnMakeLaser:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &609753564
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,9 +541,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserMaxLength: 10
   _laserDamage: 1
-  _layerMask: 0
+  _tagMask: 
   _lineRenderer: {fileID: 0}
+  _lineRendererFeedBack: {fileID: 0}
+  _lineRendererFeedBackReflect: {fileID: 0}
   HitSheild:
+    m_PersistentCalls:
+      m_Calls: []
+  HitSheildFeedBack:
     m_PersistentCalls:
       m_Calls: []
   OnFireLaser:
@@ -1302,11 +1209,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 685789421948416299, guid: 21721edd034c6ae4fa0a5fd983646194,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemyLaser
-      objectReference: {fileID: 0}
     - target: {fileID: 768767841072431667, guid: 21721edd034c6ae4fa0a5fd983646194,
         type: 3}
       propertyPath: m_Name
@@ -1362,29 +1264,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
+    - target: {fileID: 4377651831119088859, guid: 21721edd034c6ae4fa0a5fd983646194,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: HitSheild.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2100000, guid: 6210da933cc61ee49a31ba35db86ce29, type: 2}
-    - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].z
-      value: 11.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
-        type: 3}
-      propertyPath: m_Parameters.widthMultiplier
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 761318999}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 768767841072431667, guid: 21721edd034c6ae4fa0a5fd983646194,
-        type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 596058270}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21721edd034c6ae4fa0a5fd983646194, type: 3}
 --- !u!1001 &593926955808506987
 PrefabInstance:
