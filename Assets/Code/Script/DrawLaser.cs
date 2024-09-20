@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class DrawLaser : MonoBehaviour
 {
-    public void OnFireLaser(Vector3 pointA, Vector3 pointB, LineRenderer lineRenderer)
+    public void Fire(LineRenderer lineRenderer)
     {
-        lineRenderer.SetPosition(0, pointA);
-        lineRenderer.SetPosition(1, pointB);
-        
+        lineRenderer.enabled = true;
         StartCoroutine(disable(lineRenderer));
     }
     
     
     private IEnumerator disable(LineRenderer lineRenderer)
     {
-        print("call");
-        yield return new WaitForSeconds(3f);
+        
+        yield return new WaitForSeconds(0.2f);
         lineRenderer.enabled = false;
     }
 }

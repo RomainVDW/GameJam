@@ -17,11 +17,26 @@ public class Laser : MonoBehaviour
     [SerializeField] private LineRenderer _lineRendererFeedBackReflect;
     [field:SerializeField] public bool OnLaserFeeback { get; set; }
 
+    
+    public UnityEvent<LineRenderer> Fire;
+
+
+
 
     public void Update()
     {
         if (OnLaserFeeback)
+        {
+            _lineRendererFeedBack.enabled = true;
             MakeRay(transform.position, transform.forward);
+        }
+        else {
+            _lineRendererFeedBack.enabled = false;
+            _lineRendererFeedBackReflect.enabled = false;
+        }
+            
+
+        
     }
 
 
@@ -70,7 +85,19 @@ public class Laser : MonoBehaviour
 
                     }
                 }
+                else
+                {
+
+                    _lineRendererFeedBackReflect.enabled = false;
+
+                }
             }
+        }
+        else
+        {
+
+            _lineRendererFeedBackReflect.enabled = false;
+
         }
 
         _lineRendererFeedBack.SetPosition(0, pointA);
@@ -84,14 +111,11 @@ public class Laser : MonoBehaviour
         RaycastHit hit;
         Vector3 hitPos = intPos + dir * _laserMaxLength;
 
-
+        Fire.Invoke(lineRenderer);
         if (Physics.Raycast(intPos, dir, out hit, _laserMaxLength))
         {
             GameObject hitObject = hit.collider.gameObject;
             hitPos = hit.point;
-
-            lineRenderer.SetPosition(0, intPos);
-            lineRenderer.SetPosition(1, hitPos);
 
 
             if (hit.collider.CompareTag(tag)){
@@ -102,7 +126,7 @@ public class Laser : MonoBehaviour
                  
                     if (hitObject.TryGetComponent( out BouclierHeal bouclierHeal))
                     {
-                    
+                       
                         Vector3 reflectDir = Vector3.Reflect(dir, hitObject.transform.forward);
                         FireLaser(hitPos, reflectDir, "Ennemy", _lineRendererReflect);
                       

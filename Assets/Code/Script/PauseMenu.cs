@@ -9,6 +9,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _panel;
     [SerializeField] private InputActionAsset _action;
 
+    private void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
     public void Resume()
     {
         Time.timeScale = 1.0f;
@@ -25,7 +29,7 @@ public class PauseMenu : MonoBehaviour
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else
-            Application.Quit();
+        Application.Quit();
         #endif
     }
 }
