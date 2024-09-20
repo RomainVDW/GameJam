@@ -45,23 +45,21 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public IEnumerator TemporaryInvincible()
     {
         if (!_canTakeDamage) yield break;
-        else
-        {
+        
             _canTakeDamage = false;
             yield return new WaitForSeconds(_invincibilityDuration);
             _canTakeDamage = true;
-        }
+        
     }
 
     public IEnumerator TemporaryInvincible(float duration)
     {
         if (!_canTakeDamage) yield break;
-        else
-        {
+       
             _canTakeDamage = false;
             yield return new WaitForSeconds(duration);
             _canTakeDamage = true;
-        }
+        
     }
 
     public void OnDeath()

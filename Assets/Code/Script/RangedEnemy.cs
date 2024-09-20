@@ -1,10 +1,10 @@
-
+using System.Collections;
 using UnityEngine;
 
 public class RangedEnemy : EnemyParent
 {   
     [SerializeField] private Laser _laser;
-    
+    [SerializeField] private float _cooldownFeedBack;
     public override void Start()
     {
         base.Start();
@@ -13,8 +13,15 @@ public class RangedEnemy : EnemyParent
     
     protected override void Fire()
     {
-        
-        print("Fire!");
+        StartCoroutine(Cooldown());
+    }
+
+
+    public IEnumerator Cooldown()
+    {
+
+        _laser.MakeLaser();
+        yield return new WaitForSeconds(_cooldownFeedBack);
         _laser.FireLaser();
     }
 }

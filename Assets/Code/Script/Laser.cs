@@ -6,12 +6,16 @@ public class Laser : MonoBehaviour
 {
     [SerializeField] private float _laserMaxLength;
     [SerializeField] private float _laserDamage;
-    [SerializeField] private int _layerMask;
+    [SerializeField] private String _tagMask;
     [SerializeField] private LineRenderer _lineRenderer;
     
+
     public UnityEvent<Vector3,Vector3> HitSheild;
     public UnityEvent<Vector3,Vector3,LineRenderer> OnFireLaser;
     public UnityEvent OnMakeLaser;
+
+
+
     public void HealMode(IHealth healthFunction)
     {
         healthFunction.Heal(1);
@@ -37,7 +41,8 @@ public class Laser : MonoBehaviour
         {
             GameObject hitObject = hit.collider.gameObject;
             pointB = hit.point;
-     
+            
+            if (hit.collider.CompareTag(_tagMask)) {
                 if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
                 {
                     DamageMode(hit.collider.GetComponent<IHealth>());
@@ -49,11 +54,16 @@ public class Laser : MonoBehaviour
                 else if (GameManager.s_laserState == GameManager.ELaserState.Healing)
                 {
                     HealMode(hit.collider.GetComponent<IHealth>());
+
+                    DamageMode(hit.collider.GetComponent<IHealth>());
+                    if (hitObject.TryGetComponent(out BouclierHeal bouclierHeal))
+                    {
+                        HitSheild.Invoke(hit.point, transform.forward);
+                    }
                 }
-            
+                OnFireLaser.Invoke(pointA, pointB, _lineRenderer);
+            }
         }
-        
-        OnFireLaser.Invoke(pointA, pointB ,_lineRenderer);
     }
 }
 
