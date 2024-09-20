@@ -347,7 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserMaxLength: 10
   _laserDamage: 0
-  _layerMask: 0
+  _tagMask: 
   _lineRenderer: {fileID: 43380131}
   HitSheild:
     m_PersistentCalls:
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserMaxLength: 10
   _laserDamage: 1
-  _layerMask: 0
+  _tagMask: 
   _lineRenderer: {fileID: 0}
   HitSheild:
     m_PersistentCalls:
