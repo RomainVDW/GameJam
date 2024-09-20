@@ -23,5 +23,6 @@ public class RangedEnemy : EnemyParent
         _laser.MakeLaser();
         yield return new WaitForSeconds(_cooldownFeedBack);
         _laser.FireLaser();
+
     }
 }
