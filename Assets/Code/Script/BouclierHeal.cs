@@ -5,6 +5,9 @@ public class BouclierHeal : MonoBehaviour, IHealth
 {
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
+    [SerializeField] private Laser _laser;
+
+
 
     private bool _canTakeDamage;
     public bool Active { get; set; } 
@@ -52,6 +55,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
     {
        // if (!Active) return;
         Vector3 reflectedDirection = Vector3.Reflect(direction, transform.forward);
+        _laser.FireLaser();
     }
 
 
