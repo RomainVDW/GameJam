@@ -6,6 +6,6 @@ public class MeleeEnemy : EnemyParent
 {
     protected override void Fire()
     {
-
+        
     }
 }

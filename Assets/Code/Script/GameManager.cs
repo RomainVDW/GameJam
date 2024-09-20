@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public event Action _gameOver;
     private Transform _player;
     private static GameManager _instance;
     public Transform Player
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        _gameOver.Invoke();
         Time.timeScale = 0;
     }
 }
