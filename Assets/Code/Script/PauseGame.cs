@@ -8,7 +8,8 @@ using UnityEngine.UIElements;
 public class PauseGame : MonoBehaviour
 {
     [SerializeField] private InputActionAsset _action;
-    [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject _panelPause;
+    [SerializeField] private GameObject _panelGameOver;
     private InputAction _pause;
     private void Awake()
     {
@@ -23,18 +24,24 @@ public class PauseGame : MonoBehaviour
     private void OnEnable()
     {
         _pause.performed += OnPause;
-        GameManager.s_Instance._gameOver += Pausing;
+        GameManager.s_Instance._gameOver += Lose;
     }
 
     private void OnDisable()
     {
         _pause.performed -= OnPause;
+        GameManager.s_Instance._gameOver -= Lose;
     }
 
     void Pausing()
     {
         Time.timeScale = 0f;
-        _panel.SetActive(true);
+        _panelPause.SetActive(true);
         _action.FindActionMap("Gameplay").Disable();
+    }
+    void Lose()
+    {
+        Time.timeScale = 0;
+        _panelGameOver.SetActive(true);
     }
 }
