@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8918909143773024676}
   - component: {fileID: 4377651831119088859}
   - component: {fileID: 238790222592914454}
+  - component: {fileID: 3089329995769725928}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -124,7 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d9c8e036857cc45b3b59432f3b3712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
   _maxHealth: 1
   _fireRate: 0.5
   _laser: {fileID: 0}
@@ -230,6 +230,27 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &3089329995769725928
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768767841072431667}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dcb689bf675873d4b806f086af4ff7d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1863995480528292625
 PrefabInstance:
   m_ObjectHideFlags: 0
