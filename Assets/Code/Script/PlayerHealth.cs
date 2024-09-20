@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         _health = _maxHealth;
         _camera = Camera.main.GetComponent<CameraController>();
+        _canTakeDamage = true;
     }
 
     public void Heal(float heal)
@@ -31,14 +32,19 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public void TakeDamage(float damage)
     {
         if (!_canTakeDamage)
-            return;
-        if (_health - damage < _maxHealth)
         {
+            Debug.Log("I am False by Default");
+            return;
+        }
+        if (_health - damage <= 0)
+        {
+            Debug.Log("Got Killed");
             _health = 0;
             OnDeath();
         }
         else
         {
+            Debug.Log("Took Damage");
             _health -= damage;
         }
     }
