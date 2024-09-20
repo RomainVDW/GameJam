@@ -19,10 +19,10 @@ public class RangedEnemy : EnemyParent
 
     public IEnumerator Cooldown()
     {
-
+        _isFiring = true;
         _laser.MakeLaser();
         yield return new WaitForSeconds(_cooldownFeedBack);
         _laser.FireLaser();
-
+        _isFiring = false;
     }
 }

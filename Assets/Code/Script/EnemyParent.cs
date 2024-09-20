@@ -22,7 +22,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     [SerializeField] private float _fireRate;
     private float _fireTimer = 0;
     private float _rotationSpeed = 0.3f;
-    private bool _isFiring = false;
+    protected bool _isFiring = false;
 
     public virtual void Start()
     {
@@ -103,7 +103,6 @@ public class EnemyParent : MonoBehaviour, IHealth
 
     protected virtual void Fire()
     {
-        _isFiring = true;
     }
 
     void StateExit()
