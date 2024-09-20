@@ -16,5 +16,6 @@ public class RangedEnemy : EnemyParent
         
         print("Fire!");
         _laser.FireLaser();
+
     }
 }
