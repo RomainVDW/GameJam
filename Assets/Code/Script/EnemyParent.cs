@@ -22,6 +22,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     [SerializeField] private float _fireRate;
     private float _fireTimer = 0;
     private float _rotationSpeed = 0.3f;
+    protected bool _isFiring = false;
 
     public virtual void Start()
     {
@@ -45,8 +46,11 @@ public class EnemyParent : MonoBehaviour, IHealth
     }
     void Attacking()
     {
-        Quaternion rotation = Quaternion.LookRotation(_player.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _rotationSpeed);
+        if (!_isFiring)
+        {
+            Quaternion rotation = Quaternion.LookRotation(_player.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _rotationSpeed);
+        }
         if (_agent.remainingDistance >= _agent.stoppingDistance)
         {
             StateChange(EState.Chasing);
@@ -99,7 +103,6 @@ public class EnemyParent : MonoBehaviour, IHealth
 
     protected virtual void Fire()
     {
-        
     }
 
     void StateExit()
