@@ -15,7 +15,8 @@ public class DrawLaser : MonoBehaviour
     
     private IEnumerator disable(LineRenderer lineRenderer)
     {
-        yield return new WaitForSeconds(0.1f);
+        print("call");
+        yield return new WaitForSeconds(3f);
         lineRenderer.enabled = false;
     }
 }
