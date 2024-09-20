@@ -16,7 +16,6 @@ public class EnemyParent : MonoBehaviour, IHealth
     }
     private EState _state;
     private Vector3 _moveDirection;
-    [SerializeField] private float _speed = 2f;
     [SerializeField] private float _maxHealth;
     private float _health;
     [SerializeField] private float _fireRate;
@@ -35,6 +34,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     {
         _agent.SetDestination(_player.transform.position);
         StateUpdate();
+        print(_isFiring);
     }
 
     void Chasing()
