@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
 {
     private float _health;
     [SerializeField] private float _maxHealth;
-    private bool _canTakeDamage;
+    private bool _canTakeDamage = true;
     [SerializeField] private float _invincibilityDuration = 2;
     private CameraController _camera;
 
@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         if (!_canTakeDamage)
             return;
-        if (_health - damage < _maxHealth)
+        if (_health - damage < 0)
         {
             _health = 0;
             OnDeath();
