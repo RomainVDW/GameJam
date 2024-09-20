@@ -51,12 +51,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
         }
     }
 
-    public void ReflectLaser(Vector3 hitPoint, Vector3  direction )
-    {
-       // if (!Active) return;
-        Vector3 reflectedDirection = Vector3.Reflect(direction, transform.forward);
-        _laser.FireLaser();
-    }
+ 
 
 
 

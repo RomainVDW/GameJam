@@ -1,30 +1,27 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using static UnityEngine.Rendering.VolumeComponent;
+
 
 public class Laser : MonoBehaviour
 {
     [SerializeField] private float _laserMaxLength;
     [SerializeField] private float _laserDamage;
     [SerializeField] private String _tagMask;
-    [SerializeField] private LineRenderer _lineRenderer;
 
+    [Header("Fire")]
+    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private LineRenderer _lineRendererReflect;
+    [Header("FeedBack")]
     [SerializeField] private LineRenderer _lineRendererFeedBack;
     [SerializeField] private LineRenderer _lineRendererFeedBackReflect;
-    [SerializeField] public bool _onLaserFeeback { get; set; }
+    [field:SerializeField] public bool OnLaserFeeback { get; set; }
 
-    public UnityEvent<Vector3,Vector3> HitSheild;
-    public UnityEvent<Vector3, Vector3> HitSheildFeedBack;
-
-    public UnityEvent<Vector3,Vector3,LineRenderer> OnFireLaser;
-    public UnityEvent<Vector3, Vector3, LineRenderer> OnMakeLaser;
 
     public void Update()
     {
-        
-        MakeRay(transform.position, transform.forward, _lineRendererFeedBack);
+        if (OnLaserFeeback)
+            MakeRay(transform.position, transform.forward);
     }
 
 
@@ -38,80 +35,89 @@ public class Laser : MonoBehaviour
         healthFunction.TakeDamage(1);
     }
 
-    public Vector3 ReflectLaser(Vector3 direction, Vector3 normal)
-    {
- 
-        Vector3 reflectedDirection = Vector3.Reflect(direction, normal);
-        return reflectedDirection;
-    }
- 
-
-    public void MakeRay(Vector3 a,Vector3 b,LineRenderer lineRenderer)
+    public void MakeRay(Vector3 a,Vector3 dir)
     {
         RaycastHit hit;
         Vector3 pointA = a;
-        Vector3 pointB = b;
-
-        if (Physics.Raycast(pointA, pointB, out hit, _laserMaxLength))
+        Vector3 pointB = a + dir * _laserMaxLength;
+      
+        if (Physics.Raycast(a, dir, out hit, _laserMaxLength))
         {
             GameObject hitObject = hit.collider.gameObject;
             pointB = hit.point;
 
             if (hit.collider.CompareTag(_tagMask))
             {
+             
                 if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
                 {
+               
                     DamageMode(hit.collider.GetComponent<IHealth>());
                     if (hitObject.TryGetComponent(out BouclierHeal bouclierHeal))
                     {
-                        Vector3 reflectDir = ReflectLaser( b, hitObject.transform.forward);
 
+                      
+                        Vector3 reflectDir = Vector3.Reflect(dir, hitObject.transform.forward);
                         _lineRendererFeedBackReflect.SetPosition(0, pointB);
                         _lineRendererFeedBackReflect.SetPosition(1, pointB + reflectDir * _laserMaxLength);
+                        _lineRendererFeedBackReflect.enabled = true;
+
+                    }
+                    else 
+                    {
+
+                        _lineRendererFeedBackReflect.enabled = false;
+
                     }
                 }
             }
         }
 
-        lineRenderer.SetPosition(0, pointA);
-        lineRenderer.SetPosition(1, pointB);
+        _lineRendererFeedBack.SetPosition(0, pointA);
+        _lineRendererFeedBack.SetPosition(1, pointB);
 
 
     }
 
-    public void FireLaser()
+    public void FireLaser(Vector3 intPos, Vector3 dir,String tag, LineRenderer lineRenderer)
     {
         RaycastHit hit;
-        Vector3 pointA = transform.position;
-        Vector3 pointB = transform.forward * _laserMaxLength;
-        
-        if (Physics.Raycast(transform.position, transform.forward, out hit, _laserMaxLength))
+        Vector3 hitPos = intPos + dir * _laserMaxLength;
+
+
+        if (Physics.Raycast(intPos, dir, out hit, _laserMaxLength))
         {
             GameObject hitObject = hit.collider.gameObject;
-            pointB = hit.point;
-            
-            if (hit.collider.CompareTag(_tagMask)) {
+            hitPos = hit.point;
+
+            lineRenderer.SetPosition(0, intPos);
+            lineRenderer.SetPosition(1, hitPos);
+
+
+            if (hit.collider.CompareTag(tag)){
                 if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
                 {
+                  
                     DamageMode(hit.collider.GetComponent<IHealth>());
+                 
                     if (hitObject.TryGetComponent( out BouclierHeal bouclierHeal))
                     {
-                        HitSheild.Invoke(hit.point, transform.forward);
+                    
+                        Vector3 reflectDir = Vector3.Reflect(dir, hitObject.transform.forward);
+                        FireLaser(hitPos, reflectDir, "Ennemy", _lineRendererReflect);
+                      
                     }
                 }
                 else if (GameManager.s_laserState == GameManager.ELaserState.Healing)
                 {
-                    HealMode(hit.collider.GetComponent<IHealth>());
-
                     DamageMode(hit.collider.GetComponent<IHealth>());
-                    if (hitObject.TryGetComponent(out BouclierHeal bouclierHeal))
-                    {
-                        HitSheild.Invoke(hit.point, transform.forward);
-                    }
+                    
                 }
-                OnFireLaser.Invoke(pointA, pointB, _lineRenderer);
             }
         }
+
+        lineRenderer.SetPosition(0, intPos);
+        lineRenderer.SetPosition(1, hitPos);
     }
 }
 
