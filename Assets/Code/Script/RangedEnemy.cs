@@ -26,8 +26,9 @@ public class RangedEnemy : EnemyParent
 
         _laser.OnLaserFeeback = true;
         yield return new WaitForSeconds(_cooldownFeedBack);
-        _laser.FireLaser(transform.position, transform.forward, "Player", _laserLine);
-        _laser.OnLaserFeeback = true;
         _isFiring = false;
+        _laser.FireLaser(transform.position, transform.forward, "Player", _laserLine);
+        _laser.OnLaserFeeback = false;
+        
     }
 }
