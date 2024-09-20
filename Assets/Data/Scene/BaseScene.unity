@@ -1209,6 +1209,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 172495464283240282, guid: 21721edd034c6ae4fa0a5fd983646194,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f3833c2a01d128a479f376fb42a585d7, type: 2}
     - target: {fileID: 768767841072431667, guid: 21721edd034c6ae4fa0a5fd983646194,
         type: 3}
       propertyPath: m_Name
@@ -1269,6 +1274,11 @@ PrefabInstance:
       propertyPath: HitSheild.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 761318999}
+    - target: {fileID: 4672310583669295294, guid: 21721edd034c6ae4fa0a5fd983646194,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f3833c2a01d128a479f376fb42a585d7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
