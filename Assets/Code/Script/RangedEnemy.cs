@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class RangedEnemy : EnemyParent
 {   
     [SerializeField] private Laser _laser;
     [SerializeField] private float _cooldownFeedBack;
+    [SerializeField] private LineRenderer _laserLine;
     public override void Start()
     {
         base.Start();
@@ -20,9 +22,12 @@ public class RangedEnemy : EnemyParent
     public IEnumerator Cooldown()
     {
         _isFiring = true;
-        
+
+
+        _laser.OnLaserFeeback = true;
         yield return new WaitForSeconds(_cooldownFeedBack);
-       //_laser.FireLaser();
+        _laser.FireLaser(transform.position, transform.forward, "Player", _laserLine);
+        _laser.OnLaserFeeback = true;
         _isFiring = false;
     }
 }
