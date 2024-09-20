@@ -35,6 +35,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     {
         _agent.SetDestination(_player.transform.position);
         StateUpdate();
+        print(_isFiring);
     }
 
     void Chasing()

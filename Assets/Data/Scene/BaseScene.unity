@@ -1364,9 +1364,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
         type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6210da933cc61ee49a31ba35db86ce29, type: 2}
+    - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
+        type: 3}
+      propertyPath: m_Parameters.textureScale.x
+      value: 0.26
+      objectReference: {fileID: 0}
     - target: {fileID: 6095166303194287482, guid: 21721edd034c6ae4fa0a5fd983646194,
         type: 3}
       propertyPath: m_Positions.Array.data[1].z
