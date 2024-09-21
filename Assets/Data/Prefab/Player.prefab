@@ -161,6 +161,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8393620790669119025, guid: e095adbcf17da9f4ea4a92efd2af710e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 8789048949692948155, guid: e095adbcf17da9f4ea4a92efd2af710e,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789048949692948155, guid: e095adbcf17da9f4ea4a92efd2af710e,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789048949692948155, guid: e095adbcf17da9f4ea4a92efd2af710e,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 8789048949692948155, guid: e095adbcf17da9f4ea4a92efd2af710e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -228,6 +248,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 21474974363544463}
+<<<<<<< Updated upstream
     - targetCorrespondingSourceObject: {fileID: 7278888371165273161, guid: e095adbcf17da9f4ea4a92efd2af710e,
         type: 3}
       insertIndex: -1
@@ -236,6 +257,8 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8178739133659262821}
+=======
+>>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: e095adbcf17da9f4ea4a92efd2af710e, type: 3}
 --- !u!1 &7178999107928835153 stripped
 GameObject:
@@ -278,7 +301,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.05, y: 7.93, z: 0.19}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &21474974363544463
 MonoBehaviour:
@@ -296,6 +319,7 @@ MonoBehaviour:
   _maxHealth: 3
   _laser: {fileID: 0}
   _invincibilityDuration: 2
+<<<<<<< Updated upstream
 --- !u!114 &5877800485258769357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +359,8 @@ MonoBehaviour:
   Fire:
     m_PersistentCalls:
       m_Calls: []
+=======
+>>>>>>> Stashed changes
 --- !u!4 &9177169164840797859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8789048949692948155, guid: e095adbcf17da9f4ea4a92efd2af710e,

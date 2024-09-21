@@ -5,7 +5,6 @@ public class BouclierHeal : MonoBehaviour, IHealth
 {
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
-    [SerializeField] private Laser _laser;
 
 
 

@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ennemy
+  - Shield
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,10 +13,17 @@ TagManager:
   - 
   - Water
   - UI
+<<<<<<< Updated upstream
   - Text
   - 
   - 
   - 
+=======
+  - Environment
+  - Shield
+  - Player
+  - Enemy
+>>>>>>> Stashed changes
   - 
   - 
   - 
