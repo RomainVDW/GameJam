@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private float _smoothPositionTime = 0.3f;
     private Vector3 _screenShakeOffset;
-    private float _screenshakeIntensityTest = 0.1f;
+    [SerializeField] private float _screenshakeIntensityTest = 0.1f;
 
     void Start()
     {
