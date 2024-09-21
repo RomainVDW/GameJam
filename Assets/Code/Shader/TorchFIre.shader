@@ -1,23 +1,24 @@
 // Made with Amplify Shader Editor v1.9.2.2
 // Available at the Unity Asset Store - http://u3d.as/y3X 
-Shader "TorchFIre"
+Shader "TorchFire"
 {
 	Properties
 	{
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		_Torch("Torch", 2D) = "white" {}
-		_DeformationSpeed("DeformationSpeed", Float) = 1
-		_RandomDIstortionImportance("RandomDIstortionImportance", Float) = 0.5
-		_RandomDeformationImportance("RandomDeformationImportance", Float) = 0.5
+		_RandomDistortionSpeedImportance("RandomDistortionSpeedImportance", Range( 0 , 0.01)) = 0.01
 		[HDR]_DarkColor("DarkColor", Color) = (0,0,0,0)
 		[HDR]_LightColor("LightColor", Color) = (0,0,0,0)
 		_LUT("LUT", 2D) = "white" {}
+		_LUT2("LUT", 2D) = "white" {}
 		_LUTSpeed("LUTSpeed", Float) = 0.1
-		_DeformationIntensity("DeformationIntensity", Float) = 1
+		_DeformationIntensity("DeformationIntensity", Range( 0 , 1)) = 1
 		_LUTSpeed1("LUTSpeed", Float) = 0.1
 		_DIstortionTex("DIstortionTex", 2D) = "white" {}
 		_DIstortionSpeed("DIstortionSpeed", Float) = 0
+		_DistortionIntensity("DistortionIntensity", Range( 0 , 0.1)) = 0
+		_DistortionTiling("DistortionTiling", Vector) = (0,0,0,0)
 
 
 		//_TessPhongStrength( "Tess Phong Strength", Range( 0, 1 ) ) = 0.5
@@ -185,6 +186,7 @@ Shader "TorchFIre"
 			#define ASE_FOG 1
 			#define _SURFACE_TYPE_TRANSPARENT 1
 			#define ASE_SRP_VERSION 140011
+			#define REQUIRE_DEPTH_TEXTURE 1
 
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -246,6 +248,7 @@ Shader "TorchFIre"
 					float fogFactor : TEXCOORD2;
 				#endif
 				float4 ase_texcoord3 : TEXCOORD3;
+				float4 ase_texcoord4 : TEXCOORD4;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -253,13 +256,13 @@ Shader "TorchFIre"
 			CBUFFER_START(UnityPerMaterial)
 			float4 _DarkColor;
 			float4 _LightColor;
-			float _DeformationSpeed;
+			float2 _DistortionTiling;
 			float _LUTSpeed;
-			float _RandomDeformationImportance;
 			float _DeformationIntensity;
 			float _LUTSpeed1;
-			float _RandomDIstortionImportance;
+			float _RandomDistortionSpeedImportance;
 			float _DIstortionSpeed;
+			float _DistortionIntensity;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -271,8 +274,10 @@ Shader "TorchFIre"
 			CBUFFER_END
 
 			sampler2D _LUT;
+			sampler2D _LUT2;
 			sampler2D _Torch;
 			sampler2D _DIstortionTex;
+			uniform float4 _CameraDepthTexture_TexelSize;
 
 
 			
@@ -298,10 +303,14 @@ Shader "TorchFIre"
 				//Need to nullify rotation inserted by generated surface shader;
 				v.positionOS = mul( GetWorldToObjectMatrix(), v.positionOS );
 				float mulTime29 = _TimeParameters.x * _LUTSpeed;
-				float2 appendResult31 = (float2(mulTime29 , 0.0));
-				float lerpResult22 = lerp( _DeformationSpeed , tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r , _RandomDeformationImportance);
-				float temp_output_14_0 = ( v.ase_texcoord.y * ( ( lerpResult22 - 0.66 ) * _DeformationIntensity ) );
-				float3 appendResult61 = (float3(temp_output_14_0 , 0.0 , temp_output_14_0));
+				float2 appendResult31 = (float2(mulTime29 , 0.5));
+				float mulTime75 = _TimeParameters.x * _LUTSpeed;
+				float2 appendResult77 = (float2(( mulTime75 + 0.5 ) , 0.5));
+				float3 appendResult61 = (float3(( v.ase_texcoord.y * ( ( tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r - 0.5 ) * _DeformationIntensity ) ) , 0.0 , ( v.ase_texcoord.y * ( ( tex2Dlod( _LUT2, float4( appendResult77, 0, 0.0) ).r - 1.0 ) * _DeformationIntensity ) )));
+				
+				float4 ase_clipPos = TransformObjectToHClip((v.positionOS).xyz);
+				float4 screenPos = ComputeScreenPos(ase_clipPos);
+				o.ase_texcoord4 = screenPos;
 				
 				o.ase_texcoord3.xy = v.ase_texcoord.xy;
 				
@@ -455,15 +464,20 @@ Shader "TorchFIre"
 
 				float mulTime46 = _TimeParameters.x * _LUTSpeed1;
 				float2 appendResult45 = (float2(mulTime46 , 0.0));
-				float lerpResult49 = lerp( 0.5 , tex2D( _LUT, appendResult45 ).r , _RandomDIstortionImportance);
-				float2 appendResult55 = (float2(0.0 , ( ( lerpResult49 - -0.5 ) * _DIstortionSpeed )));
-				float2 panner56 = ( _TimeParameters.x * appendResult55 + IN.ase_texcoord3.xy);
-				float4 tex2DNode11 = tex2D( _Torch, ( tex2D( _DIstortionTex, panner56 ).r + IN.ase_texcoord3.xy ) );
+				float lerpResult49 = lerp( 0.0 , tex2D( _LUT, appendResult45 ).r , _RandomDistortionSpeedImportance);
+				float2 appendResult55 = (float2(0.0 , ( ( ( 0.5 + lerpResult49 ) - -0.5 ) * _DIstortionSpeed )));
+				float2 panner56 = ( _TimeParameters.x * appendResult55 + ( IN.ase_texcoord3.xy * _DistortionTiling ));
+				float4 tex2DNode11 = tex2D( _Torch, ( ( tex2D( _DIstortionTex, panner56 ).r * _DistortionIntensity ) + IN.ase_texcoord3.xy ) );
 				float4 lerpResult32 = lerp( _DarkColor , _LightColor , tex2DNode11.r);
+				float4 screenPos = IN.ase_texcoord4;
+				float4 ase_screenPosNorm = screenPos / screenPos.w;
+				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
+				float screenDepth80 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( ase_screenPosNorm.xy ),_ZBufferParams);
+				float distanceDepth80 = abs( ( screenDepth80 - LinearEyeDepth( ase_screenPosNorm.z,_ZBufferParams ) ) / ( 1.0 ) );
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = ( lerpResult32 * tex2DNode11.r ).rgb;
+				float3 Color = ( lerpResult32 * tex2DNode11.r * distanceDepth80 ).rgb;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 				float AlphaClipThresholdShadow = 0.5;
@@ -560,13 +574,13 @@ Shader "TorchFIre"
 			CBUFFER_START(UnityPerMaterial)
 			float4 _DarkColor;
 			float4 _LightColor;
-			float _DeformationSpeed;
+			float2 _DistortionTiling;
 			float _LUTSpeed;
-			float _RandomDeformationImportance;
 			float _DeformationIntensity;
 			float _LUTSpeed1;
-			float _RandomDIstortionImportance;
+			float _RandomDistortionSpeedImportance;
 			float _DIstortionSpeed;
+			float _DistortionIntensity;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -578,6 +592,7 @@ Shader "TorchFIre"
 			CBUFFER_END
 
 			sampler2D _LUT;
+			sampler2D _LUT2;
 
 
 			
@@ -603,10 +618,10 @@ Shader "TorchFIre"
 				//Need to nullify rotation inserted by generated surface shader;
 				v.positionOS = mul( GetWorldToObjectMatrix(), v.positionOS );
 				float mulTime29 = _TimeParameters.x * _LUTSpeed;
-				float2 appendResult31 = (float2(mulTime29 , 0.0));
-				float lerpResult22 = lerp( _DeformationSpeed , tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r , _RandomDeformationImportance);
-				float temp_output_14_0 = ( v.ase_texcoord.y * ( ( lerpResult22 - 0.66 ) * _DeformationIntensity ) );
-				float3 appendResult61 = (float3(temp_output_14_0 , 0.0 , temp_output_14_0));
+				float2 appendResult31 = (float2(mulTime29 , 0.5));
+				float mulTime75 = _TimeParameters.x * _LUTSpeed;
+				float2 appendResult77 = (float2(( mulTime75 + 0.5 ) , 0.5));
+				float3 appendResult61 = (float3(( v.ase_texcoord.y * ( ( tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r - 0.5 ) * _DeformationIntensity ) ) , 0.0 , ( v.ase_texcoord.y * ( ( tex2Dlod( _LUT2, float4( appendResult77, 0, 0.0) ).r - 1.0 ) * _DeformationIntensity ) )));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -817,13 +832,13 @@ Shader "TorchFIre"
 			CBUFFER_START(UnityPerMaterial)
 			float4 _DarkColor;
 			float4 _LightColor;
-			float _DeformationSpeed;
+			float2 _DistortionTiling;
 			float _LUTSpeed;
-			float _RandomDeformationImportance;
 			float _DeformationIntensity;
 			float _LUTSpeed1;
-			float _RandomDIstortionImportance;
+			float _RandomDistortionSpeedImportance;
 			float _DIstortionSpeed;
+			float _DistortionIntensity;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -835,6 +850,7 @@ Shader "TorchFIre"
 			CBUFFER_END
 
 			sampler2D _LUT;
+			sampler2D _LUT2;
 
 
 			
@@ -871,10 +887,10 @@ Shader "TorchFIre"
 				//Need to nullify rotation inserted by generated surface shader;
 				v.positionOS = mul( GetWorldToObjectMatrix(), v.positionOS );
 				float mulTime29 = _TimeParameters.x * _LUTSpeed;
-				float2 appendResult31 = (float2(mulTime29 , 0.0));
-				float lerpResult22 = lerp( _DeformationSpeed , tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r , _RandomDeformationImportance);
-				float temp_output_14_0 = ( v.ase_texcoord.y * ( ( lerpResult22 - 0.66 ) * _DeformationIntensity ) );
-				float3 appendResult61 = (float3(temp_output_14_0 , 0.0 , temp_output_14_0));
+				float2 appendResult31 = (float2(mulTime29 , 0.5));
+				float mulTime75 = _TimeParameters.x * _LUTSpeed;
+				float2 appendResult77 = (float2(( mulTime75 + 0.5 ) , 0.5));
+				float3 appendResult61 = (float3(( v.ase_texcoord.y * ( ( tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r - 0.5 ) * _DeformationIntensity ) ) , 0.0 , ( v.ase_texcoord.y * ( ( tex2Dlod( _LUT2, float4( appendResult77, 0, 0.0) ).r - 1.0 ) * _DeformationIntensity ) )));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -1066,13 +1082,13 @@ Shader "TorchFIre"
 			CBUFFER_START(UnityPerMaterial)
 			float4 _DarkColor;
 			float4 _LightColor;
-			float _DeformationSpeed;
+			float2 _DistortionTiling;
 			float _LUTSpeed;
-			float _RandomDeformationImportance;
 			float _DeformationIntensity;
 			float _LUTSpeed1;
-			float _RandomDIstortionImportance;
+			float _RandomDistortionSpeedImportance;
 			float _DIstortionSpeed;
+			float _DistortionIntensity;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1084,6 +1100,7 @@ Shader "TorchFIre"
 			CBUFFER_END
 
 			sampler2D _LUT;
+			sampler2D _LUT2;
 
 
 			
@@ -1119,10 +1136,10 @@ Shader "TorchFIre"
 				//Need to nullify rotation inserted by generated surface shader;
 				v.positionOS = mul( GetWorldToObjectMatrix(), v.positionOS );
 				float mulTime29 = _TimeParameters.x * _LUTSpeed;
-				float2 appendResult31 = (float2(mulTime29 , 0.0));
-				float lerpResult22 = lerp( _DeformationSpeed , tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r , _RandomDeformationImportance);
-				float temp_output_14_0 = ( v.ase_texcoord.y * ( ( lerpResult22 - 0.66 ) * _DeformationIntensity ) );
-				float3 appendResult61 = (float3(temp_output_14_0 , 0.0 , temp_output_14_0));
+				float2 appendResult31 = (float2(mulTime29 , 0.5));
+				float mulTime75 = _TimeParameters.x * _LUTSpeed;
+				float2 appendResult77 = (float2(( mulTime75 + 0.5 ) , 0.5));
+				float3 appendResult61 = (float3(( v.ase_texcoord.y * ( ( tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r - 0.5 ) * _DeformationIntensity ) ) , 0.0 , ( v.ase_texcoord.y * ( ( tex2Dlod( _LUT2, float4( appendResult77, 0, 0.0) ).r - 1.0 ) * _DeformationIntensity ) )));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -1323,13 +1340,13 @@ Shader "TorchFIre"
 			CBUFFER_START(UnityPerMaterial)
 			float4 _DarkColor;
 			float4 _LightColor;
-			float _DeformationSpeed;
+			float2 _DistortionTiling;
 			float _LUTSpeed;
-			float _RandomDeformationImportance;
 			float _DeformationIntensity;
 			float _LUTSpeed1;
-			float _RandomDIstortionImportance;
+			float _RandomDistortionSpeedImportance;
 			float _DIstortionSpeed;
+			float _DistortionIntensity;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1341,6 +1358,7 @@ Shader "TorchFIre"
 			CBUFFER_END
 
 			sampler2D _LUT;
+			sampler2D _LUT2;
 
 
 			
@@ -1374,10 +1392,10 @@ Shader "TorchFIre"
 				//Need to nullify rotation inserted by generated surface shader;
 				v.positionOS = mul( GetWorldToObjectMatrix(), v.positionOS );
 				float mulTime29 = _TimeParameters.x * _LUTSpeed;
-				float2 appendResult31 = (float2(mulTime29 , 0.0));
-				float lerpResult22 = lerp( _DeformationSpeed , tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r , _RandomDeformationImportance);
-				float temp_output_14_0 = ( v.ase_texcoord.y * ( ( lerpResult22 - 0.66 ) * _DeformationIntensity ) );
-				float3 appendResult61 = (float3(temp_output_14_0 , 0.0 , temp_output_14_0));
+				float2 appendResult31 = (float2(mulTime29 , 0.5));
+				float mulTime75 = _TimeParameters.x * _LUTSpeed;
+				float2 appendResult77 = (float2(( mulTime75 + 0.5 ) , 0.5));
+				float3 appendResult61 = (float3(( v.ase_texcoord.y * ( ( tex2Dlod( _LUT, float4( appendResult31, 0, 0.0) ).r - 0.5 ) * _DeformationIntensity ) ) , 0.0 , ( v.ase_texcoord.y * ( ( tex2Dlod( _LUT2, float4( appendResult77, 0, 0.0) ).r - 1.0 ) * _DeformationIntensity ) )));
 				
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
@@ -1549,80 +1567,103 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;6;0,0;Float;False;False;-1;
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;7;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ScenePickingPass;0;7;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;8;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormals;0;8;DepthNormals;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;9;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormalsOnly;0;9;DepthNormalsOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;True;9;d3d11;metal;vulkan;xboxone;xboxseries;playstation;ps4;ps5;switch;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.BillboardNode;10;-451.9999,84.10004;Inherit;False;Cylindrical;True;True;0;1;FLOAT3;0
-Node;AmplifyShaderEditor.SimpleAddOpNode;12;-228.175,116.4491;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;-79.36015,-12.79997;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;TorchFIre;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;1;False;;1;1;False;;10;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;;0;0;Standard;22;Surface;1;638625254510363367;  Blend;2;638625254528240288;Two Sided;1;0;Forward Only;0;0;Cast Shadows;0;638625260902158144;  Use Shadow Threshold;0;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;DOTS Instancing;0;0;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;638625185969946047;0;10;False;True;False;True;False;False;True;True;True;False;False;;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;-79.36015,-12.79997;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;TorchFire;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;1;False;;1;1;False;;10;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;;0;0;Standard;22;Surface;1;638625254510363367;  Blend;2;638625254528240288;Two Sided;1;0;Forward Only;0;0;Cast Shadows;0;638625260902158144;  Use Shadow Threshold;0;0;GPU Instancing;1;0;LOD CrossFade;1;0;Built-in Fog;1;0;DOTS Instancing;0;0;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;638625185969946047;0;10;False;True;False;True;False;False;True;True;True;False;False;;False;0
 Node;AmplifyShaderEditor.SamplerNode;11;-700.3201,-107.18;Inherit;True;Property;_Torch;Torch;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.LerpOp;32;-363.1707,-286.1665;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;14;-463.6949,175.4892;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode;24;-1214.8,228.8;Inherit;True;Property;_LUT;LUT;6;0;Create;True;0;0;0;False;0;False;-1;1c16fdf0de772924fa9d615cb99846d8;1c16fdf0de772924fa9d615cb99846d8;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.DynamicAppendNode;31;-1342.8,244.8;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.SimpleTimeNode;29;-1534.8,244.8;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;30;-1678.8,244.8;Inherit;False;Property;_LUTSpeed;LUTSpeed;7;0;Create;True;0;0;0;False;0;False;0.1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;23;-1230.8,404.7999;Inherit;False;Property;_RandomDeformationImportance;RandomDeformationImportance;3;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.LerpOp;22;-908.4,228.0001;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;40;-615.0401,225.5281;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
-Node;AmplifyShaderEditor.TexCoordVertexDataNode;13;-673.5348,101.009;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SimpleSubtractOpNode;42;-1789.674,-128.3248;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;-0.5;False;1;FLOAT;0
-Node;AmplifyShaderEditor.DynamicAppendNode;45;-2380.633,-111.4448;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;51;-1652.874,-130.7167;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;48;-2268.633,48.555;Inherit;False;Property;_RandomDIstortionImportance;RandomDIstortionImportance;2;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode;44;-2252.633,-127.4448;Inherit;True;Property;_LUT1;LUT;6;0;Create;True;0;0;0;False;0;False;-1;1c16fdf0de772924fa9d615cb99846d8;1c16fdf0de772924fa9d615cb99846d8;True;0;False;white;Auto;False;Instance;24;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.PannerNode;56;-1303.057,-149.5997;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.DynamicAppendNode;55;-1478.999,-131.5505;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.TexCoordVertexDataNode;53;-1541.449,-247.4974;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SimpleTimeNode;57;-1506.32,-31.17861;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode;58;-1112.722,-174.412;Inherit;True;Property;_DIstortionTex;DIstortionTex;11;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TexCoordVertexDataNode;60;-1039.269,8.650534;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleAddOpNode;59;-814.629,-80.78946;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.SimpleTimeNode;46;-2549.477,-111.4448;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;47;-2693.477,-111.4448;Inherit;False;Property;_LUTSpeed1;LUTSpeed;10;0;Create;True;0;0;0;False;0;False;0.1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;20;-1134.8,148.8;Inherit;False;Property;_DeformationSpeed;DeformationSpeed;1;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;41;-763.0626,351.7449;Inherit;False;Property;_DeformationIntensity;DeformationIntensity;9;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.DynamicAppendNode;61;-316.1871,219.0118;Inherit;False;FLOAT3;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.SimpleSubtractOpNode;39;-751.84,227.92;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0.66;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;33;-629.4109,-441.1265;Inherit;False;Property;_DarkColor;DarkColor;4;1;[HDR];Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;34;-628.3708,-272.6465;Inherit;False;Property;_LightColor;LightColor;5;1;[HDR];Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;62;-222.2406,-282.8188;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.LerpOp;49;-1946.233,-128.2447;Inherit;False;3;0;FLOAT;0.5;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;64;-1855.404,4.379993;Inherit;False;Property;_DIstortionSpeed;DIstortionSpeed;12;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-WireConnection;12;0;10;0
-WireConnection;12;1;61;0
+Node;AmplifyShaderEditor.ColorNode;33;-629.4109,-441.1265;Inherit;False;Property;_DarkColor;DarkColor;2;1;[HDR];Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;34;-628.3708,-272.6465;Inherit;False;Property;_LightColor;LightColor;3;1;[HDR];Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;62;-222.2406,-282.8188;Inherit;False;3;3;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SamplerNode;58;-1302.05,-166.6314;Inherit;True;Property;_DIstortionTex;DIstortionTex;8;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;65;-960.3103,-158.0116;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;66;-1303.51,17.98846;Inherit;False;Property;_DistortionIntensity;DistortionIntensity;10;0;Create;True;0;0;0;False;0;False;0;0;0;0.1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleSubtractOpNode;42;-1991.469,-113.0782;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;-0.5;False;1;FLOAT;0
+Node;AmplifyShaderEditor.DynamicAppendNode;45;-2582.427,-96.19823;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;51;-1854.669,-115.4701;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SamplerNode;44;-2454.427,-112.1982;Inherit;True;Property;_LUT1;LUT;4;0;Create;True;0;0;0;False;0;False;-1;1c16fdf0de772924fa9d615cb99846d8;1c16fdf0de772924fa9d615cb99846d8;True;0;False;white;Auto;False;Instance;24;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.PannerNode;56;-1504.852,-134.3531;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.DynamicAppendNode;55;-1680.794,-116.3039;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.SimpleTimeNode;57;-1708.115,-15.93203;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleTimeNode;46;-2751.271,-96.19823;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;64;-2057.198,19.62656;Inherit;False;Property;_DIstortionSpeed;DIstortionSpeed;9;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;47;-2895.271,-96.19823;Inherit;False;Property;_LUTSpeed1;LUTSpeed;7;0;Create;True;0;0;0;False;0;False;0.1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;67;-2124.374,-271.9377;Inherit;False;2;2;0;FLOAT;0.5;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.LerpOp;49;-2148.027,-112.9981;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.TexCoordVertexDataNode;53;-1948.044,-358.6508;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;68;-1740.513,-307.6781;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.Vector2Node;69;-1919.713,-242.878;Inherit;False;Property;_DistortionTiling;DistortionTiling;11;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
+Node;AmplifyShaderEditor.RangedFloatNode;48;-2448.468,76.51493;Inherit;False;Property;_RandomDistortionSpeedImportance;RandomDistortionSpeedImportance;1;0;Create;True;0;0;0;False;0;False;0.01;0.5;0;0.01;0;1;FLOAT;0
+Node;AmplifyShaderEditor.DynamicAppendNode;61;-375.5412,191.0805;Inherit;False;FLOAT3;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;14;-549.3944,152.827;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;40;-700.7396,202.8659;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
+Node;AmplifyShaderEditor.TexCoordVertexDataNode;13;-759.2343,78.34679;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;24;-1128.376,179.7923;Inherit;True;Property;_LUT;LUT;4;0;Create;True;0;0;0;False;0;False;-1;1c16fdf0de772924fa9d615cb99846d8;1c16fdf0de772924fa9d615cb99846d8;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleTimeNode;29;-1426.442,195.7923;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.DynamicAppendNode;31;-1256.376,195.7923;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0.5;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.SimpleSubtractOpNode;39;-837.5395,205.2578;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0.5;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;30;-1602.581,197.1897;Inherit;False;Property;_LUTSpeed;LUTSpeed;5;0;Create;True;0;0;0;False;0;False;0.1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;12;-221.1923,140.889;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.BillboardNode;10;-408.3572,119.0141;Inherit;False;Cylindrical;True;True;0;1;FLOAT3;0
+Node;AmplifyShaderEditor.RangedFloatNode;41;-1038.139,363.9795;Inherit;False;Property;_DeformationIntensity;DeformationIntensity;6;0;Create;True;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;70;-457.4509,405.9265;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.DynamicAppendNode;77;-1164.433,448.8918;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0.5;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
+Node;AmplifyShaderEditor.SamplerNode;74;-1036.433,432.8918;Inherit;True;Property;_LUT2;LUT;4;0;Create;True;0;0;0;False;0;False;-1;1c16fdf0de772924fa9d615cb99846d8;1c16fdf0de772924fa9d615cb99846d8;True;0;False;white;Auto;False;Instance;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SimpleAddOpNode;79;-1296.488,444.3503;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.5;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleTimeNode;75;-1476.641,446.5992;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleSubtractOpNode;78;-745.596,458.3573;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;71;-608.7961,455.9654;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
+Node;AmplifyShaderEditor.TexCoordVertexDataNode;72;-689.6484,327.2543;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.DepthFade;80;-396.3398,-42.20753;Inherit;False;True;False;True;2;1;FLOAT3;0,0,0;False;0;FLOAT;1;False;1;FLOAT;0
 WireConnection;1;2;62;0
 WireConnection;1;5;12;0
 WireConnection;11;1;59;0
 WireConnection;32;0;33;0
 WireConnection;32;1;34;0
 WireConnection;32;2;11;1
-WireConnection;14;0;13;2
-WireConnection;14;1;40;0
-WireConnection;24;1;31;0
-WireConnection;31;0;29;0
-WireConnection;29;0;30;0
-WireConnection;22;0;20;0
-WireConnection;22;1;24;1
-WireConnection;22;2;23;0
-WireConnection;40;0;39;0
-WireConnection;40;1;41;0
-WireConnection;42;0;49;0
+WireConnection;59;0;65;0
+WireConnection;59;1;60;0
+WireConnection;62;0;32;0
+WireConnection;62;1;11;1
+WireConnection;62;2;80;0
+WireConnection;58;1;56;0
+WireConnection;65;0;58;1
+WireConnection;65;1;66;0
+WireConnection;42;0;67;0
 WireConnection;45;0;46;0
 WireConnection;51;0;42;0
 WireConnection;51;1;64;0
 WireConnection;44;1;45;0
-WireConnection;56;0;53;0
+WireConnection;56;0;68;0
 WireConnection;56;2;55;0
 WireConnection;56;1;57;0
 WireConnection;55;1;51;0
-WireConnection;58;1;56;0
-WireConnection;59;0;58;1
-WireConnection;59;1;60;0
 WireConnection;46;0;47;0
-WireConnection;61;0;14;0
-WireConnection;61;2;14;0
-WireConnection;39;0;22;0
-WireConnection;62;0;32;0
-WireConnection;62;1;11;1
+WireConnection;67;1;49;0
 WireConnection;49;1;44;1
 WireConnection;49;2;48;0
+WireConnection;68;0;53;0
+WireConnection;68;1;69;0
+WireConnection;61;0;14;0
+WireConnection;61;2;70;0
+WireConnection;14;0;13;2
+WireConnection;14;1;40;0
+WireConnection;40;0;39;0
+WireConnection;40;1;41;0
+WireConnection;24;1;31;0
+WireConnection;29;0;30;0
+WireConnection;31;0;29;0
+WireConnection;39;0;24;1
+WireConnection;12;0;10;0
+WireConnection;12;1;61;0
+WireConnection;70;0;72;2
+WireConnection;70;1;71;0
+WireConnection;77;0;79;0
+WireConnection;74;1;77;0
+WireConnection;79;0;75;0
+WireConnection;75;0;30;0
+WireConnection;78;0;74;1
+WireConnection;71;0;78;0
+WireConnection;71;1;41;0
 ASEEND*/
-//CHKSM=0A44F85682B624EABE212A49AAFD8602F772A016
+//CHKSM=66DB12A5DAD74C866008A45CF8F498C5E3CB1C18
