@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _DIstortionTex:
-        m_Texture: {fileID: 2800000, guid: fb8b45a190ad257469c6fdacf5813b7a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c0eed309f28df9343bba2fa934077a6a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LUT:
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Torch:
-        m_Texture: {fileID: 2800000, guid: 68153c0bccdb0a945b45bac13f55d3f8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 358f96ee77a7a3b46a09724d640eb8f8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -58,11 +58,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _DIstortionSpeed: 0.1
-    - _DeformationIntensity: 0.29
+    - _DIstortionSpeed: -1
+    - _DeformationIntensity: 0.5
     - _DeformationIntensity1: 1
     - _DeformationSpeed: 1
-    - _DistortionIntensity: 0.0482
+    - _DepthFadeDIstance: 0.01
+    - _DistortionIntensity: 0.1
+    - _Float1: 0.1
     - _LUTSpeed: 0.1
     - _LUTSpeed1: 0.1
     - _LUTSpeed2: 0.1
@@ -70,8 +72,10 @@ Material:
     - _QueueOffset: 0
     - _RandomDIstortionImportance: 0.0076
     - _RandomDeformationImportance: 0.5
-    - _RandomDistortionSpeedImportance: 0.01
+    - _RandomDistortionSpeedImportance: 0
     - _ReceiveShadows: 1
+    - _SinDistortionIntensity: 0.0752
+    - _SinDistortionSpeed: -10
     - _TessEdgeLength: 16
     - _TessMax: 25
     - _TessMaxDisp: 25
@@ -81,8 +85,8 @@ Material:
     m_Colors:
     - _Color0: {r: 0, g: 0, b: 0, a: 0}
     - _Color1: {r: 0, g: 0, b: 0, a: 0}
-    - _DarkColor: {r: 2.670157, g: 2.18189, b: 0.5793733, a: 0}
-    - _DistortionTiling: {r: 0.25, g: 0.25, b: 0, a: 0}
+    - _DarkColor: {r: 2.6701574, g: 1.7074832, b: 0.5871549, a: 0}
+    - _DistortionTiling: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _LightColor: {r: 5.3403134, g: 1.0683476, b: 0.7154005, a: 0}
+    - _LightColor: {r: 4.2416415, g: 0.13441817, b: 0.024008945, a: 0}
   m_BuildTextureStacks: []
