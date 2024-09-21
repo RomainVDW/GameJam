@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector3 position = Vector3.SmoothDamp(transform.position, _player.transform.position - posOffset + _screenShakeOffset, ref velocity, _smoothPositionTime);
-        transform.position = position;
+        Vector3 position = Vector3.SmoothDamp(transform.position, _player.transform.position - posOffset, ref velocity, _smoothPositionTime);
+        transform.position = position + _screenShakeOffset;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(Screenshake(3, 5));
