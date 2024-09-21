@@ -11,11 +11,11 @@ public class Laser : MonoBehaviour
     [field:SerializeField] public bool OnLaserFeeback { get; set; }
     [SerializeField] private float _laserMaxLength;
     
-    private int _shieldLayer = 7;
+    private int _shieldLayer = 8;
     private int _environmentLayer = 1;
+    private Vector3 _oldPosition;
     
-    
-    
+  
     public void Update()
     {
         if (OnLaserFeeback)
@@ -27,9 +27,11 @@ public class Laser : MonoBehaviour
         {
             _lineRendererFeedBack.enabled = false;
             _lineRendererFeedBackReflect.enabled = false;
+            _oldPosition = transform.position + transform.forward * _laserMaxLength;
         }
     }
-
+    
+    
     public void MakeRay(Vector3 initPosition,Vector3 dir)
     {
         RaycastHit hit;
@@ -43,8 +45,10 @@ public class Laser : MonoBehaviour
             if (GameManager.s_laserState == GameManager.ELaserState.Damaging && hit.collider.gameObject.layer == _shieldLayer)
             {
                 Vector3 reflectDir = Vector3.Reflect(dir, hit.transform.forward);
-                setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalPosition + reflectDir * _laserMaxLength);
+                Vector3 finalReflectPosition = Vector3.Lerp(_oldPosition, finalPosition, 0.3f);
+                setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalReflectPosition + reflectDir * _laserMaxLength);
                 _lineRendererFeedBackReflect.enabled = true;
+                _oldPosition = finalReflectPosition;
             }
             else 
             {

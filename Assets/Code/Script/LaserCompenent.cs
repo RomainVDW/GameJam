@@ -7,9 +7,9 @@ public class LaserCompenent : MonoBehaviour
     private int _layerMaskEntities;
     private int _layerMaskActor;
     
-    private int _shieldLayer = 7;
+    private int _shieldLayer = 8;
     private int _environmentLayer = 1;
-    private int _enemyLayer = 9;
+    private int _enemyLayer = 10;
     private int _playerLayer = 1;
     
     
