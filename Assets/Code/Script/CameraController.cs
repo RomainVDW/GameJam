@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private float _smoothPositionTime = 0.3f;
     private Vector3 _screenShakeOffset;
+    [SerializeField] private float _screenshakeIntensityTest = 0.1f;
 
     void Start()
     {
@@ -18,11 +19,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector3 position = Vector3.SmoothDamp(transform.position, _player.transform.position - posOffset + _screenShakeOffset, ref velocity, _smoothPositionTime);
-        transform.position = position;
+        Vector3 position = Vector3.SmoothDamp(transform.position, _player.transform.position - posOffset, ref velocity, _smoothPositionTime);
+        transform.position = position + _screenShakeOffset;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Screenshake(3, 5));
+            StartCoroutine(Screenshake(3, _screenshakeIntensityTest));
         }
     }
 
