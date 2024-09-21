@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         if (!_canTakeDamage)
             return;
-        if (_health - damage < 0)
+        if (_health - damage <= 0)
         {
             _health = 0;
             OnDeath();
