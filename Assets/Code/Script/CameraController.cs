@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         transform.position = position + _screenShakeOffset;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Screenshake(3, 0.5));
+            StartCoroutine(Screenshake(3, 0.5f));
         }
     }
 

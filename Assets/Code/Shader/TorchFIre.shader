@@ -14,10 +14,10 @@ Shader "TorchFIre"
 		[HDR]_LightColor("LightColor", Color) = (0,0,0,0)
 		_LUT("LUT", 2D) = "white" {}
 		_LUTSpeed("LUTSpeed", Float) = 0.1
-		_DistortionIntensity("DistortionIntensity", Float) = 0
 		_DeformationIntensity("DeformationIntensity", Float) = 1
 		_LUTSpeed1("LUTSpeed", Float) = 0.1
 		_DIstortionTex("DIstortionTex", 2D) = "white" {}
+		_DIstortionSpeed("DIstortionSpeed", Float) = 0
 
 
 		//_TessPhongStrength( "Tess Phong Strength", Range( 0, 1 ) ) = 0.5
@@ -259,7 +259,7 @@ Shader "TorchFIre"
 			float _DeformationIntensity;
 			float _LUTSpeed1;
 			float _RandomDIstortionImportance;
-			float _DistortionIntensity;
+			float _DIstortionSpeed;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -456,7 +456,7 @@ Shader "TorchFIre"
 				float mulTime46 = _TimeParameters.x * _LUTSpeed1;
 				float2 appendResult45 = (float2(mulTime46 , 0.0));
 				float lerpResult49 = lerp( 0.5 , tex2D( _LUT, appendResult45 ).r , _RandomDIstortionImportance);
-				float2 appendResult55 = (float2(0.0 , ( ( lerpResult49 - -0.5 ) * _DistortionIntensity )));
+				float2 appendResult55 = (float2(0.0 , ( ( lerpResult49 - -0.5 ) * _DIstortionSpeed )));
 				float2 panner56 = ( _TimeParameters.x * appendResult55 + IN.ase_texcoord3.xy);
 				float4 tex2DNode11 = tex2D( _Torch, ( tex2D( _DIstortionTex, panner56 ).r + IN.ase_texcoord3.xy ) );
 				float4 lerpResult32 = lerp( _DarkColor , _LightColor , tex2DNode11.r);
@@ -566,7 +566,7 @@ Shader "TorchFIre"
 			float _DeformationIntensity;
 			float _LUTSpeed1;
 			float _RandomDIstortionImportance;
-			float _DistortionIntensity;
+			float _DIstortionSpeed;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -823,7 +823,7 @@ Shader "TorchFIre"
 			float _DeformationIntensity;
 			float _LUTSpeed1;
 			float _RandomDIstortionImportance;
-			float _DistortionIntensity;
+			float _DIstortionSpeed;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1072,7 +1072,7 @@ Shader "TorchFIre"
 			float _DeformationIntensity;
 			float _LUTSpeed1;
 			float _RandomDIstortionImportance;
-			float _DistortionIntensity;
+			float _DIstortionSpeed;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1329,7 +1329,7 @@ Shader "TorchFIre"
 			float _DeformationIntensity;
 			float _LUTSpeed1;
 			float _RandomDIstortionImportance;
-			float _DistortionIntensity;
+			float _DIstortionSpeed;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1568,7 +1568,6 @@ Node;AmplifyShaderEditor.DynamicAppendNode;45;-2380.633,-111.4448;Inherit;False;
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;51;-1652.874,-130.7167;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;2;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;48;-2268.633,48.555;Inherit;False;Property;_RandomDIstortionImportance;RandomDIstortionImportance;2;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;44;-2252.633,-127.4448;Inherit;True;Property;_LUT1;LUT;6;0;Create;True;0;0;0;False;0;False;-1;1c16fdf0de772924fa9d615cb99846d8;1c16fdf0de772924fa9d615cb99846d8;True;0;False;white;Auto;False;Instance;24;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;50;-1877.75,-13.93821;Inherit;False;Property;_DistortionIntensity;DistortionIntensity;8;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.PannerNode;56;-1303.057,-149.5997;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.DynamicAppendNode;55;-1478.999,-131.5505;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.TexCoordVertexDataNode;53;-1541.449,-247.4974;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -1586,6 +1585,7 @@ Node;AmplifyShaderEditor.ColorNode;33;-629.4109,-441.1265;Inherit;False;Property
 Node;AmplifyShaderEditor.ColorNode;34;-628.3708,-272.6465;Inherit;False;Property;_LightColor;LightColor;5;1;[HDR];Create;True;0;0;0;False;0;False;0,0,0,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;62;-222.2406,-282.8188;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.LerpOp;49;-1946.233,-128.2447;Inherit;False;3;0;FLOAT;0.5;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;64;-1855.404,4.379993;Inherit;False;Property;_DIstortionSpeed;DIstortionSpeed;12;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 WireConnection;12;0;10;0
 WireConnection;12;1;61;0
 WireConnection;1;2;62;0
@@ -1607,7 +1607,7 @@ WireConnection;40;1;41;0
 WireConnection;42;0;49;0
 WireConnection;45;0;46;0
 WireConnection;51;0;42;0
-WireConnection;51;1;50;0
+WireConnection;51;1;64;0
 WireConnection;44;1;45;0
 WireConnection;56;0;53;0
 WireConnection;56;2;55;0
@@ -1625,4 +1625,4 @@ WireConnection;62;1;11;1
 WireConnection;49;1;44;1
 WireConnection;49;2;48;0
 ASEEND*/
-//CHKSM=8951242898AEA5A74FA468E072A457CBBD481BA4
+//CHKSM=0A44F85682B624EABE212A49AAFD8602F772A016
