@@ -50,6 +50,8 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     m_Colors:
+    - _DarkColor: {r: 2, g: 1.8086718, b: 0.25283015, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HealColor: {r: 0, g: 0, b: 0, a: 0}
+    - _HealColor: {r: 0.6435861, g: 1, b: 0.1566037, a: 0}
+    - _LightColor: {r: 0.72456557, g: 2, b: 0.3132074, a: 0}
   m_BuildTextureStacks: []
