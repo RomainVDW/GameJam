@@ -231,7 +231,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7278888371165273161, guid: e095adbcf17da9f4ea4a92efd2af710e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3310312626839117503}
+      addedObject: {fileID: 5877800485258769357}
+    - targetCorrespondingSourceObject: {fileID: 7278888371165273161, guid: e095adbcf17da9f4ea4a92efd2af710e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8178739133659262821}
   m_SourcePrefab: {fileID: 100100000, guid: e095adbcf17da9f4ea4a92efd2af710e, type: 3}
 --- !u!1 &7178999107928835153 stripped
 GameObject:
@@ -292,7 +296,23 @@ MonoBehaviour:
   _maxHealth: 3
   _laser: {fileID: 0}
   _invincibilityDuration: 2
---- !u!114 &3310312626839117503
+--- !u!114 &5877800485258769357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178999107928835153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a9550e572e34649af16a8c65496b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 0
+  _maxHealth: 3
+  _laser: {fileID: 0}
+  _invincibilityDuration: 2
+--- !u!114 &8178739133659262821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
