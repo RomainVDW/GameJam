@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private float _smoothPositionTime = 0.3f;
     private Vector3 _screenShakeOffset;
+    private float _screenshakeIntensityTest = 0.1f;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class CameraController : MonoBehaviour
         transform.position = position + _screenShakeOffset;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Screenshake(3, 0.5f));
+            StartCoroutine(Screenshake(3, _screenshakeIntensityTest));
         }
     }
 
