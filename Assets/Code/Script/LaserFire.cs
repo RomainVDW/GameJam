@@ -14,10 +14,20 @@ public class LaserFire : LaserCompenent
         StartCoroutine(disable(_laser.gameObject,_time));
         if (IsReflect)
         {
-            Vector3 reflect = Vector3.Reflect(InitialDirection, LastActorHit.forward);
-            GameObject laser = Instantiate(_laserReflectPrefab, transform.position, Quaternion.identity);
-            laser.GetComponent<LaserFire>().InitialPosition = FinalPosition;
-            laser.GetComponent<LaserFire>().InitialDirection = reflect;
+            SheildHeal sheildHeal = LastActorHit.GetComponent<SheildHeal>();
+           
+            if (sheildHeal.Active)
+            {
+                
+                sheildHeal.TakeDamage(LaserDamage);
+                
+                Vector3 reflect = Vector3.Reflect(InitialDirection, LastActorHit.forward);
+                GameObject laser = Instantiate(_laserReflectPrefab, transform.position, Quaternion.identity);
+                laser.GetComponent<LaserFire>().IsReflect = false;
+                laser.GetComponent<LaserFire>().InitialPosition = FinalPosition;
+                laser.GetComponent<LaserFire>().InitialDirection = reflect;
+            }
+            
         }
     }
     

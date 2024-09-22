@@ -50,7 +50,6 @@ public class LaserCompenent : MonoBehaviour
             }
             
             LastActorHit = hit.transform; //Si le dernier actor toucher reflect cela veux dire que c est le bouclier
-            print(LastActorHit.name);
             return hit.point;
         }
         else

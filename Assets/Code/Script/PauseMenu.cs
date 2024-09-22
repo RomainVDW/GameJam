@@ -6,23 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject _panelStart;
+    [SerializeField] private GameObject _panelPause;
     [SerializeField] private InputActionAsset _action;
 
-    private void Start()
+    public void StartPlay()
     {
-        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("Level1");
+        _panelStart.SetActive(false);
     }
     public void Resume()
     {
         Time.timeScale = 1.0f;
-        _panel.SetActive(false);
+        _panelPause.SetActive(false);
         _action.FindActionMap("Gameplay").Enable();
     }
     public void Retry() 
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene("BaseScene");
+        SceneManager.LoadScene("Level1");
     }
     public void Quit()
     {
