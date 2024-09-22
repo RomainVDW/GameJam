@@ -17,8 +17,8 @@ public class LaserFire : LaserCompenent
         {
             Vector3 reflect = Vector3.Reflect(InitialDirection, LastActorHit.forward);
             GameObject laser = Instantiate(_laserReflectPrefab, transform.position, Quaternion.identity);
-            laser.GetComponent<LaserReflect>().InitialPosition = LastActorHit.position;
-            laser.GetComponent<LaserReflect>().InitialDirection = reflect;
+            laser.GetComponent<LaserFire>().InitialPosition = LastActorHit.position;
+            laser.GetComponent<LaserFire>().InitialDirection = reflect;
         }
     }
     
