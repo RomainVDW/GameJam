@@ -63,10 +63,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Blur: 0.43
-    - _Disolving: 0.214
-    - _Disolving_Offest: 0.11
-    - _Float: 0.79
+    - _Blur: 0.03
+    - _Disolving: 0.229
+    - _Disolving_Offest: 0.91
+    - _Float: 0.94
     - _Float_1: 1
     - _QueueControl: 0
     - _QueueOffset: 0

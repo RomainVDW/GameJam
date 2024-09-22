@@ -6,8 +6,10 @@ using UnityEngine.Events;
 public class Laser : MonoBehaviour
 {
     [Header("FeedBack")]
+    
     [SerializeField] private LineRenderer _lineRendererFeedBack;
     [SerializeField] private LineRenderer _lineRendererFeedBackReflect;
+    
     [field:SerializeField] public bool OnLaserFeeback { get; set; }
     [SerializeField] private float _laserMaxLength;
     
@@ -20,13 +22,13 @@ public class Laser : MonoBehaviour
     {
         if (OnLaserFeeback)
         {
-            _lineRendererFeedBack.enabled = true;
+            _lineRendererFeedBack.gameObject.SetActive(true);
             MakeRay(transform.position, transform.forward);
         }
         else 
         {
-            _lineRendererFeedBack.enabled = false;
-            _lineRendererFeedBackReflect.enabled = false;
+            _lineRendererFeedBack.gameObject.SetActive(false);
+            _lineRendererFeedBackReflect.gameObject.SetActive(false);
             _oldPosition = transform.position + transform.forward * _laserMaxLength;
         }
     }
@@ -47,16 +49,16 @@ public class Laser : MonoBehaviour
                 Vector3 reflectDir = Vector3.Reflect(dir, hit.transform.forward);
                 Vector3 finalReflectPosition = Vector3.Lerp(_oldPosition, finalPosition, 0.3f);
                 setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalReflectPosition + reflectDir * _laserMaxLength);
-                _lineRendererFeedBackReflect.enabled = true;
+                _lineRendererFeedBackReflect.gameObject.SetActive(true);
                 _oldPosition = finalReflectPosition;
             }
             else 
             {
-                _lineRendererFeedBackReflect.enabled = false;
+                _lineRendererFeedBackReflect.gameObject.SetActive(false);
             }
         }else
         {
-            _lineRendererFeedBackReflect.enabled = false;
+            _lineRendererFeedBackReflect.gameObject.SetActive(false);
         }
         
         setPositionLineRenderer(_lineRendererFeedBack , initPosition, finalPosition);
