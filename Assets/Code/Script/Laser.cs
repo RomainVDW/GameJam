@@ -14,7 +14,7 @@ public class Laser : MonoBehaviour
     [SerializeField] private float _laserMaxLength;
     
     private int _shieldLayer = 8;
-    private int _environmentLayer = 1;
+    private int _environmentLayer = 7;
     private Vector3 _oldPosition;
     
   
@@ -48,7 +48,18 @@ public class Laser : MonoBehaviour
             {
                 Vector3 reflectDir = Vector3.Reflect(dir, hit.transform.forward);
                 Vector3 finalReflectPosition = Vector3.Lerp(_oldPosition, finalPosition, 0.3f);
-                setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalReflectPosition + reflectDir * _laserMaxLength);
+                
+                RaycastHit hit1;
+                if (Physics.Raycast(finalPosition, reflectDir, out hit1, _laserMaxLength, layerMask))
+                {
+                    
+                    finalReflectPosition = hit1.point;
+                }else
+                {
+                    finalReflectPosition = finalPosition + reflectDir * _laserMaxLength;
+                }
+                
+                setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalReflectPosition);
                 _lineRendererFeedBackReflect.gameObject.SetActive(true);
                 _oldPosition = finalReflectPosition;
             }
