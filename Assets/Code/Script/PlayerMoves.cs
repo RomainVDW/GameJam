@@ -11,7 +11,9 @@ public class PlayerMoves : MonoBehaviour
     [SerializeField] private float _playerSpeed = 10;
     private InputAction _move;
     private InputAction _rotate;
+    private InputAction _rotateMouse;
     [SerializeField] private float _rotationSmoothing = 0.5f;
+    [SerializeField] private Camera mainCamera;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,12 +22,14 @@ public class PlayerMoves : MonoBehaviour
         _action.FindActionMap("Gameplay").Enable();
         _move = _action.FindAction("Move");
         _rotate = _action.FindAction("Rotate");
+        _rotateMouse = _action.FindAction("MouseRotate");
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
+        Aim();
     }
 
     private void MovePlayer()
@@ -36,5 +40,18 @@ public class PlayerMoves : MonoBehaviour
         Vector2 rotateInput = _rotate.ReadValue<Vector2>();
         Vector3 playerRotation = new (rotateInput.x,0, rotateInput.y);
         transform.forward = Vector3.Slerp(transform.forward, playerRotation, _rotationSmoothing);
+
+        Vector2 playerMouseInput = _rotateMouse.ReadValue<Vector2>();
+        Vector3 playerMouseRotation = new (playerMouseInput.x,0,playerMouseInput.y);
+        transform.forward = Vector3.Slerp(transform.forward, playerMouseRotation, _rotationSmoothing);
+    }
+
+    private void Aim()
+    {
+        Debug.Log(mainCamera.ScreenToWorldPoint(Input.mousePosition));
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePosition - transform.position;
+        direction.y = 0;
+        transform.forward = direction;
     }
 }
