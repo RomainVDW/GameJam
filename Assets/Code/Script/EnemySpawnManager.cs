@@ -15,6 +15,7 @@ public class EnemySpawnManager : MonoBehaviour
     private int _aliveEnemiesCount = 0;
     private int _killedEnemiesCount = 0;
     private float _heightSpawnOffset = 1;
+    private bool _spawning = false;
 
     public static EnemySpawnManager s_instance
     {
@@ -28,6 +29,8 @@ public class EnemySpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
+        if (_spawning) yield break;
+        _spawning = true;
         _maxEnemies += _difficulty;
         while (_aliveEnemiesCount < _maxEnemies)
         {
