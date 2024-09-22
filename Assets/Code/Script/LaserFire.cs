@@ -35,6 +35,6 @@ public class LaserFire : LaserCompenent
     private IEnumerator disable(GameObject ObjectToDestroy,float _time)
     {
         yield return new WaitForSeconds(_time);
-        Destroy(ObjectToDestroy);
+       // Destroy(ObjectToDestroy);
     }
 }
