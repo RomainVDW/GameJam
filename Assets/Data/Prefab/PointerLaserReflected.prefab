@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2918935070839719389}
   - component: {fileID: 1714282754255611196}
   - component: {fileID: 858585319673105028}
+  - component: {fileID: 7618385662454702336}
   m_Layer: 0
   m_Name: PointerLaserReflected
   m_TagString: Untagged
@@ -158,3 +159,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7618385662454702336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948340310914580825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c2c012d801a834fa8e2866c4cc8829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

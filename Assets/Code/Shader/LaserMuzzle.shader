@@ -11,7 +11,7 @@ Shader "LaserMuzzle"
 		_Opacity("Opacity", Range( 0 , 1)) = 0
 		_Tiling("Tiling", Vector) = (0,0,0,0)
 		_Offset("Offset", Vector) = (0,0,0,0)
-		_DepthFieldDistance("DepthField Distance", Float) = 0
+		_DepthFadeDistance("DepthFade Distance", Float) = 0
 
 
 		//_TessPhongStrength( "Tess Phong Strength", Range( 0, 1 ) ) = 0.5
@@ -248,7 +248,7 @@ Shader "LaserMuzzle"
 			float2 _Tiling;
 			float2 _Offset;
 			float _Opacity;
-			float _DepthFieldDistance;
+			float _DepthFadeDistance;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -426,7 +426,7 @@ Shader "LaserMuzzle"
 				float4 ase_screenPosNorm = screenPos / screenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
 				float screenDepth20 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( ase_screenPosNorm.xy ),_ZBufferParams);
-				float distanceDepth20 = saturate( abs( ( screenDepth20 - LinearEyeDepth( ase_screenPosNorm.z,_ZBufferParams ) ) / ( _DepthFieldDistance ) ) );
+				float distanceDepth20 = saturate( abs( ( screenDepth20 - LinearEyeDepth( ase_screenPosNorm.z,_ZBufferParams ) ) / ( _DepthFadeDistance ) ) );
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
@@ -526,7 +526,7 @@ Shader "LaserMuzzle"
 			float2 _Tiling;
 			float2 _Offset;
 			float _Opacity;
-			float _DepthFieldDistance;
+			float _DepthFadeDistance;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -752,7 +752,7 @@ Shader "LaserMuzzle"
 			float2 _Tiling;
 			float2 _Offset;
 			float _Opacity;
-			float _DepthFieldDistance;
+			float _DepthFadeDistance;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -970,7 +970,7 @@ Shader "LaserMuzzle"
 			float2 _Tiling;
 			float2 _Offset;
 			float _Opacity;
-			float _DepthFieldDistance;
+			float _DepthFadeDistance;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1196,7 +1196,7 @@ Shader "LaserMuzzle"
 			float2 _Tiling;
 			float2 _Offset;
 			float _Opacity;
-			float _DepthFieldDistance;
+			float _DepthFadeDistance;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
 				float _TessValue;
@@ -1403,7 +1403,7 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;15;-934.338,-25.28327;Inherit;Fals
 Node;AmplifyShaderEditor.SimpleAddOpNode;17;-779.938,25.91667;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.Vector2Node;18;-930.338,69.9167;Inherit;False;Property;_Offset;Offset;4;0;Create;True;0;0;0;False;0;False;0,0;0,-0.32;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
 Node;AmplifyShaderEditor.DepthFade;20;-621.5378,420.3167;Inherit;False;True;True;True;2;1;FLOAT3;0,0,0;False;0;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;21;-838.3378,443.5168;Inherit;False;Property;_DepthFieldDistance;DepthField Distance;5;0;Create;True;0;0;0;False;0;False;0;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;21;-838.3378,443.5168;Inherit;False;Property;_DepthFadeDistance;DepthFade Distance;5;0;Create;True;0;0;0;False;0;False;0;1;0;0;0;1;FLOAT;0
 WireConnection;10;1;17;0
 WireConnection;11;0;10;0
 WireConnection;11;1;12;0
@@ -1416,4 +1416,4 @@ WireConnection;17;0;15;0
 WireConnection;17;1;18;0
 WireConnection;20;0;21;0
 ASEEND*/
-//CHKSM=77027F4C6808BAF611C7F9C9549507769A1BB30A
+//CHKSM=7B8516E74022AEA42C5DFB69B703A8361E208E5F

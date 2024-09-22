@@ -75,6 +75,8 @@ Material:
     - _Disolve_Border_Size: 0.21
     - _Disolving: 0
     - _Disolving_Offest: 0.91
+    - _Emissive_Gradient_Power: 16.62
+    - _Emissive_Intensity: 4.17
     - _Float: 0.94
     - _Float_1: 1
     - _Intensity: 0.32

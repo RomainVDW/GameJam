@@ -46,6 +46,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
+    - _DepthFadeDistance: 1
+    - _DepthFieldDistance: 1
     - _Opacity: 1
     - _QueueControl: 0
     - _QueueOffset: 0

@@ -51,5 +51,5 @@ Material:
     - _ReceiveShadows: 1
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SparksColor: {r: 5.3403144, g: 0.915966, b: 0.6430745, a: 0}
+    - _SparksColor: {r: 1.0529546, g: 5.3403144, b: 0.67103434, a: 0}
   m_BuildTextureStacks: []
