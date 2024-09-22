@@ -7,8 +7,8 @@ using UnityEngine.AI;
 public class EnemyParent : MonoBehaviour, IHealth
 {
     private Transform _player;
-    NavMeshAgent _agent;
-    private enum EState
+    protected NavMeshAgent _agent;
+    protected enum EState
     {
         Chasing,
         Attacking,
@@ -18,9 +18,9 @@ public class EnemyParent : MonoBehaviour, IHealth
     private Vector3 _moveDirection;
     [SerializeField] private float _maxHealth;
     private float _health;
-    [SerializeField] private float _fireRate;
-    private float _fireTimer = 0;
-    private float _rotationSpeed = 0.3f;
+    [SerializeField] protected float _fireRate;
+    protected float _fireTimer = 0;
+    private float _rotationSpeed = 0.9f;
     protected bool _isFiring = false;
     private bool _canTakeDamage = true;
 
@@ -45,12 +45,13 @@ public class EnemyParent : MonoBehaviour, IHealth
             StateChange(EState.Attacking);
         }
     }
-    void Attacking()
+    protected virtual void Attacking()
     {
         if (!_isFiring)
         {
             Quaternion rotation = Quaternion.LookRotation(_player.transform.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _rotationSpeed);
+            Vector3 rotationVect = rotation.eulerAngles.y * Vector3.up;
+            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, rotationVect, _rotationSpeed);
         }
         if (_agent.remainingDistance >= _agent.stoppingDistance)
         {
@@ -67,7 +68,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     {
         
     }
-    private void StateChange(EState newState)
+    protected void StateChange(EState newState)
     {
         StateExit();
         _state = newState;
