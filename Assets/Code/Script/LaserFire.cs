@@ -6,6 +6,8 @@ public class LaserFire : LaserCompenent
     [SerializeField] private LineRenderer _laser;
     [SerializeField] private GameObject _laserReflectPrefab;
     [SerializeField] private float _time;
+    [SerializeField] private GameObject _hitVFX;
+
     public void Start()
     {
         base.Start();
@@ -28,6 +30,7 @@ public class LaserFire : LaserCompenent
                 laser.GetComponent<LaserFire>().InitialDirection = reflect;
             }
         }
+        Instantiate(_hitVFX, FinalPosition, Quaternion.identity);
     }
     
     
