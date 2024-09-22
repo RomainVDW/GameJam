@@ -27,10 +27,10 @@ public class SheildHeal : MonoBehaviour, IHealth
         if (!Active)
         {
             _player.TakeDamage(damage);
+            return;
         }
         if (!_canTakeDamage ) return;
         _health -= damage;
-        print(_health);
         StartCoroutine(TemporaryInvincible());
         UpdateStatus();
     }

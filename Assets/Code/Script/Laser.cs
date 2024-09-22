@@ -46,22 +46,28 @@ public class Laser : MonoBehaviour
             finalPosition = hit.point;
             if (GameManager.s_laserState == GameManager.ELaserState.Damaging && hit.collider.gameObject.layer == _shieldLayer)
             {
-                Vector3 reflectDir = Vector3.Reflect(dir, hit.transform.forward);
-                Vector3 finalReflectPosition = Vector3.Lerp(_oldPosition, finalPosition, 0.3f);
-                
-                RaycastHit hit1;
-                if (Physics.Raycast(finalPosition, reflectDir, out hit1, _laserMaxLength, layerMask))
+                if (hit.collider.gameObject.GetComponent<SheildHeal>().Active)
                 {
+                    Vector3 reflectDir = Vector3.Reflect(dir, hit.transform.forward);
+                    Vector3 finalReflectPosition = Vector3.Lerp(_oldPosition, finalPosition, 0.3f);
+                
+                    RaycastHit hit1;
+                    if (Physics.Raycast(finalPosition, reflectDir, out hit1, _laserMaxLength, layerMask))
+                    {
                     
-                    finalReflectPosition = hit1.point;
+                        finalReflectPosition = hit1.point;
+                    }else
+                    {
+                        finalReflectPosition = finalPosition + reflectDir * _laserMaxLength;
+                    }
+                
+                    setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalReflectPosition);
+                    _lineRendererFeedBackReflect.gameObject.SetActive(true);
+                    _oldPosition = finalReflectPosition;
                 }else
                 {
-                    finalReflectPosition = finalPosition + reflectDir * _laserMaxLength;
+                    _lineRendererFeedBackReflect.gameObject.SetActive(false);
                 }
-                
-                setPositionLineRenderer( _lineRendererFeedBackReflect, finalPosition, finalReflectPosition);
-                _lineRendererFeedBackReflect.gameObject.SetActive(true);
-                _oldPosition = finalReflectPosition;
             }
             else 
             {

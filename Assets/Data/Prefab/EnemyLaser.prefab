@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <LaserMaxLength>k__BackingField: 100
-  <LaserMaxWidth>k__BackingField: 0.5
+  <LaserMaxWidth>k__BackingField: 0.1
   <LaserDamage>k__BackingField: 1
   <IsReflect>k__BackingField: 0
   _laser: {fileID: 1998170752882670667}
