@@ -15,9 +15,11 @@ public class PlayerMoves : MonoBehaviour
     [SerializeField] private float _rotationSmoothing = 0.5f;
     [SerializeField] private Camera mainCamera;
 
+    private Animator _animator;
     // Start is called before the first frame update
     void Awake()
     {
+        _animator = GetComponent<Animator>();
         GameManager.s_Instance.Player = transform;
         _action.FindActionMap("Gameplay").Enable();
         _move = _action.FindAction("Move");
@@ -35,6 +37,16 @@ public class PlayerMoves : MonoBehaviour
     private void MovePlayer()
     {
         Vector2 moveInput = _move.ReadValue<Vector2>();
+        if (moveInput.normalized.magnitude > 0.5f)
+        {
+            _animator.SetBool("IsRun", true);
+        }
+        else
+        {
+            _animator.SetBool("IsRun", false);
+        }
+        
+        
         Vector3 playerDirection = new Vector3(moveInput.x, 0, moveInput.y) * _playerSpeed;
         _playerCtrlr.SimpleMove(playerDirection);
         Vector2 rotateInput = _rotate.ReadValue<Vector2>();
