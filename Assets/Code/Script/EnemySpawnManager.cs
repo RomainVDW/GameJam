@@ -7,7 +7,6 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private List<Transform> _spawnPointList;
     [SerializeField] private float _enemySpawnDelay = 0.5f;
     [SerializeField] private List<GameObject> _enemyPrefab;
-    [SerializeField] private float _randomSpawnPositionRadius = 3;
     [SerializeField] private float _maxEnemies = 3;
     [SerializeField] private int _minEnemies = 0;
     private static EnemySpawnManager _instance;
