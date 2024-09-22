@@ -14,6 +14,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private int _difficulty = 1;
     private int _aliveEnemiesCount = 0;
     private int _killedEnemiesCount = 0;
+    private float _heightSpawnOffset = 1;
 
     public static EnemySpawnManager s_instance
     {
@@ -30,10 +31,10 @@ public class EnemySpawnManager : MonoBehaviour
         _maxEnemies += _difficulty;
         while (_aliveEnemiesCount < _maxEnemies)
         {
-            Transform spawnPoint = _spawnPointList[Random.Range(0, _spawnPointList.Count)];
+            Transform spawnPoint = _spawnPointList[Random.Range(0, _spawnPointList.Count - 1)];
             Vector2 randomSpawnPosition = Random.insideUnitCircle * _randomSpawnPositionRadius;
-            Vector3 spawnPosition = new(spawnPoint.position.x + randomSpawnPosition.x, spawnPoint.position.y, spawnPoint.position.z + randomSpawnPosition.y);
-            Instantiate(_enemyPrefab[Random.Range(0, _spawnPointList.Count)], spawnPosition, spawnPoint.rotation);
+            Vector3 spawnPosition = new(spawnPoint.position.x + randomSpawnPosition.x, spawnPoint.position.y + _heightSpawnOffset, spawnPoint.position.z + randomSpawnPosition.y);
+            Instantiate(_enemyPrefab[Random.Range(0, _enemyPrefab.Count - 1)], spawnPosition, spawnPoint.rotation);
             _aliveEnemiesCount++;
             yield return new WaitForSeconds(_enemySpawnDelay);
         }
