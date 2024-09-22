@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LaserFire : LaserCompenent
@@ -17,7 +16,7 @@ public class LaserFire : LaserCompenent
         {
             Vector3 reflect = Vector3.Reflect(InitialDirection, LastActorHit.forward);
             GameObject laser = Instantiate(_laserReflectPrefab, transform.position, Quaternion.identity);
-            laser.GetComponent<LaserFire>().InitialPosition = LastActorHit.position;
+            laser.GetComponent<LaserFire>().InitialPosition = FinalPosition;
             laser.GetComponent<LaserFire>().InitialDirection = reflect;
         }
     }

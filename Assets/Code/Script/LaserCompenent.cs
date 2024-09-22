@@ -8,7 +8,7 @@ public class LaserCompenent : MonoBehaviour
     private int _layerMaskActor;
     
     private int _shieldLayer = 8;
-    private int _environmentLayer = 1;
+    private int _environmentLayer = 7;
     private int _enemyLayer = 10;
     private int _playerLayer = 1;
     
@@ -50,7 +50,7 @@ public class LaserCompenent : MonoBehaviour
             }
             
             LastActorHit = hit.transform; //Si le dernier actor toucher reflect cela veux dire que c est le bouclier
-            
+            print(LastActorHit.name);
             return hit.point;
         }
         else
