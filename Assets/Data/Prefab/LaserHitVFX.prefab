@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8856114401633096308}
   - component: {fileID: 1206683078218991692}
+  - component: {fileID: 547448357921266584}
   m_Layer: 0
   m_Name: LaserHitVFX
   m_TagString: Untagged
@@ -56,6 +57,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &547448357921266584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366265610499964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb820f56b10adc49bf9c216a0195fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyType: 0
+  _destroyDelay: 0
 --- !u!1 &2137556266886454988
 GameObject:
   m_ObjectHideFlags: 0
