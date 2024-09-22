@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class BouclierHeal : MonoBehaviour, IHealth
+public class SheildHeal : MonoBehaviour, IHealth
 {
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
-
+    
+    [SerializeField] private PlayerHealth _player;
 
 
     private bool _canTakeDamage;
@@ -16,15 +17,20 @@ public class BouclierHeal : MonoBehaviour, IHealth
 
     private void Start()
     {
+        _canTakeDamage = true;
+        Active = true;
         _health = _maxHealth;
     }
 
     public void TakeDamage(float damage)
     {
-   
-        if (!_canTakeDamage) return;
-  
+        if (!Active)
+        {
+            _player.TakeDamage(damage);
+        }
+        if (!_canTakeDamage ) return;
         _health -= damage;
+        print(_health);
         StartCoroutine(TemporaryInvincible());
         UpdateStatus();
     }
@@ -32,6 +38,7 @@ public class BouclierHeal : MonoBehaviour, IHealth
     public void Heal(float heal)
     {
         _health = _health + heal > _maxHealth ? _maxHealth : _health + heal;
+        UpdateStatus();
     }
 
     public void OnDeath()
@@ -57,8 +64,6 @@ public class BouclierHeal : MonoBehaviour, IHealth
     public IEnumerator TemporaryInvincible()
     {
         if (!_canTakeDamage) yield break;
-    
-        
         _canTakeDamage = false;
         yield return new WaitForSeconds(_invincibilityDuration);
         _canTakeDamage = true;
