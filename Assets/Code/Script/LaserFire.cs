@@ -27,7 +27,6 @@ public class LaserFire : LaserCompenent
                 laser.GetComponent<LaserFire>().InitialPosition = FinalPosition;
                 laser.GetComponent<LaserFire>().InitialDirection = reflect;
             }
-            
         }
     }
     

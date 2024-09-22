@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     {
         s_laserState = ELaserState.Damaging;
         _laserPhaseTimer = _laserDamagingPhaseTimerMax;
-        Time.timeScale = 0f;
+       // Time.timeScale = 0f;
     }
 
     private void Update()
@@ -72,6 +72,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         _gameOver.Invoke();
-        Time.timeScale = 0;
+       // Time.timeScale = 0;
     }
 }

@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <LaserMaxLength>k__BackingField: 100
-  <LaserMaxWidth>k__BackingField: 0.5
+  <LaserMaxWidth>k__BackingField: 0.1
   <LaserDamage>k__BackingField: 1
   <IsReflect>k__BackingField: 0
   _laser: {fileID: 1998170752882670667}
@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 7729400967693834291, guid: 08283f4b98c386840b610ed667c2419a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 7729400967693834291, guid: 08283f4b98c386840b610ed667c2419a,
         type: 3}

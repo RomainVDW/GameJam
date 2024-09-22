@@ -30,7 +30,8 @@ public class RangedEnemy : EnemyParent
         _laser.OnLaserFeeback = true;
         yield return new WaitForSeconds(_cooldownFeedBack);
         _laser.OnLaserFeeback = false;
-        GameObject laser = Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        GameObject laser = Instantiate(_laserPrefab, transform.position, transform.rotation);
+        
         laser.GetComponent<LaserFire>().InitialPosition = _initPosToFire.position;
         laser.GetComponent<LaserFire>().InitialDirection = transform.forward;
         

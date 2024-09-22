@@ -35,7 +35,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     {
         _agent.SetDestination(_player.transform.position);
         StateUpdate();
-        print(_isFiring);
+        
     }
 
     void Chasing()
@@ -65,7 +65,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     }
     void Dead()
     {
-
+        
     }
     private void StateChange(EState newState)
     {
@@ -150,6 +150,6 @@ public class EnemyParent : MonoBehaviour, IHealth
         if (!_canTakeDamage) return;
         _canTakeDamage = false;
         EnemySpawnManager.s_instance.DecreaseAliveEnemiesCount();
-        Destroy(gameObject);
+        GetComponent<Animator>().SetTrigger("Dead");
     }
 }

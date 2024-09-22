@@ -10,7 +10,7 @@ public class LaserCompenent : MonoBehaviour
     private int _shieldLayer = 8;
     private int _environmentLayer = 7;
     private int _enemyLayer = 10;
-    private int _playerLayer = 1;
+    private int _playerLayer = 9;
     
     
     [field: SerializeField] public float LaserMaxLength { get; set;}
