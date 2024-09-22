@@ -5891,6 +5891,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05025f86baeb23f4496d1e8ace6bef4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _laserStateImage: {fileID: 0}
+  _laserStateDamaging: {fileID: 0}
+  _laserStateHealing: {fileID: 0}
   _laserDamagingPhaseTimerMax: 30
   _laserHealingPhaseTimerMax: 10
 --- !u!4 &435087106
@@ -13398,6 +13401,74 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8104378957584961196, guid: 07800536e6ae9624f87973c550d03883, type: 3}
+--- !u!1001 &937910219
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5926628
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.2720224
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d0599f0c061c279478360b09e7a379ae,
+        type: 3}
+      propertyPath: m_Name
+      value: ME_RN_Knight_Animated_Run
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0599f0c061c279478360b09e7a379ae, type: 3}
 --- !u!1001 &944738498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16848,6 +16919,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a9550e572e34649af16a8c65496b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shieldImage: {fileID: 0}
+  _shield0: {fileID: 0}
+  _shield1: {fileID: 0}
+  _shield2: {fileID: 0}
+  _shield3: {fileID: 0}
+  _shield4: {fileID: 0}
+  _shield5: {fileID: 0}
   _health: 0
   _maxHealth: 9
   _player: {fileID: 1968731987}
@@ -31993,6 +32071,11 @@ PrefabInstance:
       propertyPath: _rotationSmoothing
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 9161945922262142570, guid: 080524f56a70c754eb3ee9ab9ea4769f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2da63b41330736b44a3519100e9f0a92, type: 2}
     m_RemovedComponents:
     - {fileID: 4483988083264047097, guid: 080524f56a70c754eb3ee9ab9ea4769f, type: 3}
     m_RemovedGameObjects: []
@@ -32593,3 +32676,4 @@ SceneRoots:
   - {fileID: 968439312}
   - {fileID: 1268623695}
   - {fileID: 1747348035}
+  - {fileID: 937910219}
