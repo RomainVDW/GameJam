@@ -67,7 +67,7 @@ public class EnemySpawnManager : MonoBehaviour
         Gizmos.color = Color.red;
         foreach (Transform spawnPoint in _spawnPointList)
         {
-            Gizmos.DrawWireSphere(spawnPoint.position, _randomSpawnPositionRadius);
+            Gizmos.DrawWireSphere(spawnPoint.position, spawnPoint.GetComponent<SpawnPoint>()._spawnPointRadius);
         }
     }
 }
