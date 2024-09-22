@@ -32,7 +32,7 @@ public class EnemySpawnManager : MonoBehaviour
         while (_aliveEnemiesCount < _maxEnemies)
         {
             Transform spawnPoint = _spawnPointList[Random.Range(0, _spawnPointList.Count - 1)];
-            Vector2 randomSpawnPosition = Random.insideUnitCircle * _randomSpawnPositionRadius;
+            Vector2 randomSpawnPosition = Random.insideUnitCircle * spawnPoint.GetComponent<SpawnPoint>()._spawnPointRadius;
             Vector3 spawnPosition = new(spawnPoint.position.x + randomSpawnPosition.x, spawnPoint.position.y + _heightSpawnOffset, spawnPoint.position.z + randomSpawnPosition.y);
             Instantiate(_enemyPrefab[Random.Range(0, _enemyPrefab.Count - 1)], spawnPosition, spawnPoint.rotation);
             _aliveEnemiesCount++;
@@ -61,5 +61,13 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnEnemies());
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        foreach (Transform spawnPoint in _spawnPointList)
+        {
+            Gizmos.DrawWireSphere(spawnPoint.position, spawnPoint.GetComponent<SpawnPoint>()._spawnPointRadius);
+        }
     }
 }
