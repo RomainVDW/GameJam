@@ -1,8 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SheildHeal : MonoBehaviour, IHealth
 {
+    [SerializeField] private Image _shieldImage;
+    [SerializeField] private Sprite _shield0;
+    [SerializeField] private Sprite _shield1;
+    [SerializeField] private Sprite _shield2;
+    [SerializeField] private Sprite _shield3;
+    [SerializeField] private Sprite _shield4;
+    [SerializeField] private Sprite _shield5;
+    
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
     
@@ -50,9 +59,29 @@ public class SheildHeal : MonoBehaviour, IHealth
     {
         if (_health <= 0)
         {
+            _shieldImage.sprite = _shield0;
             OnDeath();
-        }else if (_health > 0)
+        }
+        else if (_health > 0)
         {
+            switch (_health)
+            {
+                case 5f:
+                    _shieldImage.sprite = _shield5;
+                    break;
+                case 4f:
+                    _shieldImage.sprite = _shield4;
+                    break;
+                case 3f:
+                    _shieldImage.sprite = _shield3;
+                    break;
+                case 2f:
+                    _shieldImage.sprite = _shield2;
+                    break;
+                case 1f:
+                    _shieldImage.sprite = _shield1;
+                    break;
+            }
             Active = true;
         }
     }

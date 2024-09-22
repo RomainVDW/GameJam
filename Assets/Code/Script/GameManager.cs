@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Image _laserStateImage;
+    [SerializeField] private Sprite _laserStateDamaging;
+    [SerializeField] private Sprite _laserStateHealing;
     public event Action _gameOver;
     private Transform _player;
     private static GameManager _instance;
@@ -48,6 +52,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateLaserState();
+        Debug.Log(s_laserState);
     }
 
     private void UpdateLaserState()
@@ -59,10 +64,12 @@ public class GameManager : MonoBehaviour
             {
                 case ELaserState.Damaging:
                     s_laserState = ELaserState.Healing;
+                    _laserStateImage.sprite = _laserStateHealing;
                     _laserPhaseTimer = _laserHealingPhaseTimerMax;
                     break;
                 case ELaserState.Healing:
                     s_laserState = ELaserState.Damaging;
+                    _laserStateImage.sprite = _laserStateDamaging;
                     _laserPhaseTimer = _laserDamagingPhaseTimerMax;
                     break;
             }
