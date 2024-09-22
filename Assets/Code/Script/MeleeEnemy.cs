@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MeleeEnemy : EnemyParent
 {
+    [SerializeField] private Animator _sickelAnimator;
     protected override void Fire()
     {
-        
+        _sickelAnimator.SetTrigger("Attack");
     }
     protected override void Attacking()
     {
