@@ -22,6 +22,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     private float _fireTimer = 0;
     private float _rotationSpeed = 0.3f;
     protected bool _isFiring = false;
+    private bool _canTakeDamage = true;
 
     public virtual void Start()
     {
@@ -120,6 +121,7 @@ public class EnemyParent : MonoBehaviour, IHealth
 
     public void TakeDamage(float damage)
     {
+        if (!_canTakeDamage) return;
         if (_health - damage < _maxHealth)
         {
             _health = 0;
@@ -145,6 +147,9 @@ public class EnemyParent : MonoBehaviour, IHealth
 
     public void OnDeath()
     {
+        if (!_canTakeDamage) return;
+        _canTakeDamage = false;
+        EnemySpawnManager.s_instance.DecreaseAliveEnemiesCount();
         Destroy(gameObject);
     }
 }
