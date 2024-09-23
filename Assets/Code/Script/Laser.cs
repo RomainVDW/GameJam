@@ -27,7 +27,6 @@ public class Laser : MonoBehaviour
         }
         else 
         {
-            _lineRendererFeedBack.gameObject.SetActive(false);
             _lineRendererFeedBackReflect.gameObject.SetActive(false);
             _oldPosition = transform.position + transform.forward * _laserMaxLength;
         }
