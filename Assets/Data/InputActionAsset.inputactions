@@ -40,7 +40,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputGamepad",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -62,7 +62,7 @@
                     "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputKeyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -73,7 +73,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputKeyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -84,7 +84,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputKeyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -95,7 +95,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputKeyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -105,8 +105,8 @@
                     "id": "c9185221-e9cc-4ebd-93bc-54754adb7466",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "processors": "StickDeadzone(min=1,max=0.5)",
+                    "groups": "InputGamepad",
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -117,7 +117,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputKeyboard",
                     "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -128,7 +128,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "InputGamepad",
                     "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -136,5 +136,28 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "InputGamepad",
+            "bindingGroup": "InputGamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "InputKeyboard",
+            "bindingGroup": "InputKeyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

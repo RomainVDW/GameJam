@@ -14,6 +14,16 @@ public class PlayerMoves : MonoBehaviour
     private InputAction _rotateMouse;
     [SerializeField] private float _rotationSmoothing = 0.5f;
     [SerializeField] private Camera mainCamera;
+    private Vector2 _mousePosition;
+    private Vector2 _joystickPosition;
+
+    private enum Device
+    {
+        controller,
+        mouseAndKeyboard
+    }
+
+    private Device _currentDevice;
 
     private Animator _animator;
     // Start is called before the first frame update
@@ -31,7 +41,7 @@ public class PlayerMoves : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        Aim();
+        Debug.Log(_currentDevice);
     }
 
     private void MovePlayer()
@@ -45,21 +55,40 @@ public class PlayerMoves : MonoBehaviour
         {
             _animator.SetBool("IsRun", false);
         }
-        
-        
         Vector3 playerDirection = new Vector3(moveInput.x, 0, moveInput.y) * _playerSpeed;
         _playerCtrlr.SimpleMove(playerDirection);
-        Vector2 rotateInput = _rotate.ReadValue<Vector2>();
-        Vector3 playerRotation = new (rotateInput.x,0, rotateInput.y);
-        transform.forward = Vector3.Slerp(transform.forward, playerRotation, _rotationSmoothing);
+        UpdateDevice();
+        if (_currentDevice == Device.controller)
+        {
+            Vector2 rotateInput = _rotate.ReadValue<Vector2>();
+            Vector3 playerRotation = new (rotateInput.x,0, rotateInput.y);
+            transform.forward = Vector3.Slerp(transform.forward, playerRotation, _rotationSmoothing);
+        }
+        else
+        {
+            Aim();
+        }
     }
 
     private void Aim()
     {
-        Debug.Log(mainCamera.ScreenToWorldPoint(Input.mousePosition));
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePosition - transform.position;
         direction.y = 0;
         transform.forward = direction;
+    }
+
+    private void UpdateDevice()
+    {
+        if(Mouse.current.position.ReadValue() != _mousePosition)
+        {
+            _currentDevice = Device.mouseAndKeyboard;
+            _mousePosition = Mouse.current.position.ReadValue();
+        }
+        else if (_move.ReadValue<Vector2>() != _joystickPosition)
+        {
+            _currentDevice = Device.controller;
+            _joystickPosition = _move.ReadValue<Vector2>();
+        }
     }
 }
