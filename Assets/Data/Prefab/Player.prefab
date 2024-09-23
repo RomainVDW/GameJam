@@ -5662,7 +5662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
-  _invincibilityDuration: -11.09
+  _invincibilityDuration: 1
 --- !u!114 &3989220762113775816
 MonoBehaviour:
   m_ObjectHideFlags: 0
