@@ -7,7 +7,7 @@ public class StartMenu : MonoBehaviour
 {
     public void StartPlay()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Level_Endless");
     }
     public void StartEndless()
     {
