@@ -151,7 +151,7 @@ public class EnemyParent : MonoBehaviour, IHealth
     {
         if (!_canTakeDamage) return;
         _canTakeDamage = false;
-        //EnemySpawnManager.s_instance.DecreaseAliveEnemiesCount();
+        EnemySpawnManager.s_instance.DecreaseAliveEnemiesCount();
         Destroy(GetComponent<Laser>());
         Destroy(GetComponent<RangedEnemy>());
         Debug.Log("I Was Here");
