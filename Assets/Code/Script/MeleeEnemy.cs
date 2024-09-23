@@ -5,9 +5,11 @@ using UnityEngine;
 public class MeleeEnemy : EnemyParent
 {
     [SerializeField] private Animator _sickelAnimator;
+    [SerializeField] private Animator _slashAnimator;
     protected override void Fire()
     {
         _sickelAnimator.SetTrigger("Attack");
+        _slashAnimator.SetTrigger("Slash");
     }
     protected override void Attacking()
     {

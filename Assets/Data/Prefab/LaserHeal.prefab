@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6721366460133036866}
   - component: {fileID: 519868922168548558}
+  - component: {fileID: 6565168002677289464}
   m_Layer: 0
   m_Name: LaserHeal
   m_TagString: Untagged
@@ -133,6 +134,26 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6565168002677289464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8055168618833437612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d96bd8ab157914cb71bbec6ae9c48b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LaserMaxLength>k__BackingField: 1000
+  <LaserMaxWidth>k__BackingField: 0.1
+  <LaserDamage>k__BackingField: 1
+  <IsReflect>k__BackingField: 0
+  _laser: {fileID: 519868922168548558}
+  _laserReflectPrefab: {fileID: 0}
+  _time: 0
+  _hitVFX: {fileID: 1110533674858837248, guid: a94ebc0d9cd58aa45917b7374ba0b0e6, type: 3}
