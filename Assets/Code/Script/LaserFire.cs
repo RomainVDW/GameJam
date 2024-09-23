@@ -22,10 +22,12 @@ public class LaserFire : LaserCompenent
             if (GameManager.s_laserState == GameManager.ELaserState.Healing)
             {
                 sheildHeal.Heal(LaserDamage);
+                CanReflect = false;
             }
          
-            if (sheildHeal.Active)
+            if (sheildHeal.Active && CanReflect)
             {
+                CanReflect = false;
                 StartCoroutine(Camera.main.GetComponent<CameraController>().Screenshake(0.5f, 0.5f));
                 sheildHeal.TakeDamage(LaserDamage);
                 
@@ -34,6 +36,7 @@ public class LaserFire : LaserCompenent
                 laser.GetComponent<LaserFire>().IsReflect = false;
                 laser.GetComponent<LaserFire>().InitialPosition = FinalPosition;
                 laser.GetComponent<LaserFire>().InitialDirection = reflect;
+                laser.GetComponent<LaserFire>().CanReflect = false;
             }
         }
         Instantiate(_hitVFX, FinalPosition, Quaternion.identity);
@@ -44,7 +47,10 @@ public class LaserFire : LaserCompenent
     {
         if (actor.gameObject.TryGetComponent(out IHealth healthInterface))
         {
-            healthInterface.TakeDamage(LaserDamage);
+            if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
+            {
+                healthInterface.TakeDamage(LaserDamage);
+            }
         }
     }
     

@@ -161,7 +161,9 @@ MonoBehaviour:
   _maxHealth: 1
   _fireRate: 0.5
   _cooldownFeedBack: 1
-  _laserPrefab: {fileID: 5091571285268512794, guid: 93b59cae29c354940a80c3161fb33ef7,
+  _laserPrefabDamage: {fileID: 5091571285268512794, guid: 93b59cae29c354940a80c3161fb33ef7,
+    type: 3}
+  _laserPrefabHeal: {fileID: 8055168618833437612, guid: e2307611130c3d14d9768fb8efa4e0c2,
     type: 3}
   _initPosToFire: {fileID: 7982912199005823701}
   _laser: {fileID: 655660469552503932}

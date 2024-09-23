@@ -12,13 +12,14 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Start()
     {
+        
         _health = _maxHealth;
         _camera = Camera.main.GetComponent<CameraController>();
     }
 
     private void Update()
     {
-        if (transform.position.y < 0)
+        if (transform.position.y < -1)
         {
             TakeDamage(_health);
         }
@@ -38,9 +39,11 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void TakeDamage(float damage)
     {
+       
         if (!_canTakeDamage)
             return;
         _camera.Screenshake(2f, 1);
+       
         if (_health - damage <= 0)
         {
             _health = 0;
@@ -49,6 +52,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         else
         {
             _health -= damage;
+            
         }
     }
     public IEnumerator TemporaryInvincible()
@@ -73,6 +77,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void OnDeath()
     {
+        print("Dead");
         GameManager.s_Instance.GameOver();
     }
 }

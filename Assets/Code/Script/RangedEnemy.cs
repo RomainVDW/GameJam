@@ -6,7 +6,8 @@ public class RangedEnemy : EnemyParent
 {   
 
     [SerializeField] private float _cooldownFeedBack;
-    [SerializeField] private GameObject _laserPrefab;
+    [SerializeField] private GameObject _laserPrefabDamage;
+    [SerializeField] private GameObject _laserPrefabHeal;
     [SerializeField] private Transform _initPosToFire;
     [SerializeField] private Laser _laser;
     public override void Start()
@@ -30,7 +31,17 @@ public class RangedEnemy : EnemyParent
         _laser.OnLaserFeeback = true;
         yield return new WaitForSeconds(_cooldownFeedBack);
         _laser.OnLaserFeeback = false;
-        GameObject laser = Instantiate(_laserPrefab, transform.position, transform.rotation);
+
+        GameObject laser;
+        if (GameManager.s_laserState == GameManager.ELaserState.Damaging)
+        { 
+             laser = Instantiate(_laserPrefabDamage, transform.position, transform.rotation);
+        }
+        else
+        {
+             laser = Instantiate(_laserPrefabHeal, transform.position, transform.rotation);
+            
+        }
         
         laser.GetComponent<LaserFire>().InitialPosition = _initPosToFire.position;
         laser.GetComponent<LaserFire>().InitialDirection = transform.forward;

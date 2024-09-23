@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        _gameOver.Invoke();
+        //_gameOver.Invoke();
        // Time.timeScale = 0;
     }
 }

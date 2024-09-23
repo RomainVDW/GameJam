@@ -23,10 +23,12 @@ public class LaserCompenent : MonoBehaviour
     public Vector3 InitialDirection { get; set; }
     public Collider[] HitColliders{ get; set;}
     public Transform LastActorHit { get; set; }
+    public Boolean CanReflect { get; set; }
     
     
     public void Awake()
     {
+        CanReflect = true;
         _layerMaskEntities = 1 << _shieldLayer | 1 << _environmentLayer;
         _layerMaskActor = 1 << _enemyLayer | 1 << _playerLayer | 1 << _shieldLayer;
         
