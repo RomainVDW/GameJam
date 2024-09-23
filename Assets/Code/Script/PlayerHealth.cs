@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
-    private float _health;
+    [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
     private bool _canTakeDamage = true;
     [SerializeField] private float _invincibilityDuration = 2;
@@ -19,9 +19,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Update()
     {
-        if (transform.position.y < -1)
+        if (transform.position.y < -0.5)
         {
-            TakeDamage(_health);
+            OnDeath();
         }
     }
 
