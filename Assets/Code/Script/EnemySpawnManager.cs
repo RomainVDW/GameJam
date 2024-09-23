@@ -49,6 +49,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
         _currentWave++;
         VictoryCheck();
+        _spawning = false;
     }
 
     private void VictoryCheck()
@@ -73,6 +74,7 @@ public class EnemySpawnManager : MonoBehaviour
         _killedEnemiesCount++;
         if (_aliveEnemiesCount <= _minEnemies)
         {
+            StopAllCoroutines();
             StartCoroutine(SpawnEnemies());
         }
     }
@@ -92,5 +94,9 @@ public class EnemySpawnManager : MonoBehaviour
         {
             Gizmos.DrawWireSphere(spawnPoint.position, spawnPoint.GetComponent<SpawnPoint>()._spawnPointRadius);
         }
+    }
+    private void Update()
+    {
+        print(_aliveEnemiesCount);
     }
 }
