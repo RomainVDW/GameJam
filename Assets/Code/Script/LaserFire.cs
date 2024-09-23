@@ -18,7 +18,12 @@ public class LaserFire : LaserCompenent
         if (IsReflect)
         {
             SheildHeal sheildHeal = LastActorHit.GetComponent<SheildHeal>();
-           
+
+            if (GameManager.s_laserState == GameManager.ELaserState.Healing)
+            {
+                sheildHeal.Heal(LaserDamage);
+            }
+         
             if (sheildHeal.Active)
             {
                 StartCoroutine(Camera.main.GetComponent<CameraController>().Screenshake(0.5f, 0.5f));
