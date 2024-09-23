@@ -53,7 +53,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void VictoryCheck()
     {
-        if (_currentWave>=_lastWave&&!_endless)
+        if (_currentWave >= _lastWave && !_endless)
         {
             GameManager.s_Instance.Victory();
         }
@@ -79,11 +79,11 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemies());
         if (_lastWave == 0)
         {
             _endless = true;
         }
+        StartCoroutine(SpawnEnemies());
     }
     private void OnDrawGizmos()
     {
