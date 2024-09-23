@@ -45,11 +45,16 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+    }
+
     private void Start()
     {
         s_laserState = ELaserState.Damaging;
         _laserPhaseTimer = _laserDamagingPhaseTimerMax;
-       // Time.timeScale = 0f;
     }
 
     private void Update()
@@ -79,10 +84,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    public IEnumerator GameOver()
     {
+        yield return new WaitForSeconds(3f); 
         _gameOver.Invoke();
-       Time.timeScale = 0;
+        Time.timeScale = 0;
     }
     public void Victory()
     {
