@@ -8,6 +8,7 @@ public class LaserFire : LaserCompenent
     [SerializeField] private float _time;
     [SerializeField] private GameObject _hitVFX;
 
+
     public void Start()
     {
         base.Start();
@@ -20,7 +21,7 @@ public class LaserFire : LaserCompenent
            
             if (sheildHeal.Active)
             {
-                
+                StartCoroutine(Camera.main.GetComponent<CameraController>().Screenshake(0.5f, 0.5f));
                 sheildHeal.TakeDamage(LaserDamage);
                 
                 Vector3 reflect = Vector3.Reflect(InitialDirection, LastActorHit.forward);
