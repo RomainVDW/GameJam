@@ -16,6 +16,14 @@ public class PlayerHealth : MonoBehaviour, IHealth
         _camera = Camera.main.GetComponent<CameraController>();
     }
 
+    private void Update()
+    {
+        if (transform.position.y < 0)
+        {
+            TakeDamage(_health);
+        }
+    }
+
     public void Heal(float heal)
     {
         if (_health + heal > _maxHealth)
@@ -45,21 +53,21 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public IEnumerator TemporaryInvincible()
     {
         if (!_canTakeDamage) yield break;
-        
-            _canTakeDamage = false;
-            yield return new WaitForSeconds(_invincibilityDuration);
-            _canTakeDamage = true;
-        
+
+        _canTakeDamage = false;
+        yield return new WaitForSeconds(_invincibilityDuration);
+        _canTakeDamage = true;
+
     }
 
     public IEnumerator TemporaryInvincible(float duration)
     {
         if (!_canTakeDamage) yield break;
-       
-            _canTakeDamage = false;
-            yield return new WaitForSeconds(duration);
-            _canTakeDamage = true;
-        
+
+        _canTakeDamage = false;
+        yield return new WaitForSeconds(duration);
+        _canTakeDamage = true;
+
     }
 
     public void OnDeath()

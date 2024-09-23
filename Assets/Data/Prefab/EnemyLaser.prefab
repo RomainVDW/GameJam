@@ -194,6 +194,7 @@ MonoBehaviour:
   _laser: {fileID: 1998170752882670667}
   _laserReflectPrefab: {fileID: 5091571285268512794}
   _time: 1
+  _hitVFX: {fileID: 7366265610499964, guid: 6adf184c7fb0c354185826bf46996f97, type: 3}
 --- !u!1001 &1449438668767913653
 PrefabInstance:
   m_ObjectHideFlags: 0
