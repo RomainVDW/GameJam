@@ -11223,12 +11223,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shieldImage: {fileID: 0}
-  _shield0: {fileID: 21300000, guid: d79f3584545f3b94ab4c6577bad12f36, type: 3}
-  _shield1: {fileID: 21300000, guid: ab9ce0a4086c14b40a58faa91405af06, type: 3}
-  _shield2: {fileID: 21300000, guid: 4b6b0f920e6258e4585b62608e9bf4dd, type: 3}
-  _shield3: {fileID: 21300000, guid: 0ccaebdc98e83f84f826ea583af0acdb, type: 3}
-  _shield4: {fileID: 21300000, guid: 85782706ce73fb64bab7f2edab5b2073, type: 3}
-  _shield5: {fileID: 21300000, guid: 2b09f93bfda36324d9aedb5154f53584, type: 3}
+  _shield0: {fileID: 21300000, guid: 76e39b33dc2e2b042b164adeba362630, type: 3}
+  _shield1: {fileID: 21300000, guid: 527676cb004810441a50ff2ee6498a90, type: 3}
+  _shield2: {fileID: 21300000, guid: c9bba9ccca93ad941b11e2ebf655e8e1, type: 3}
+  _shield3: {fileID: 21300000, guid: 2b09f93bfda36324d9aedb5154f53584, type: 3}
+  _shield4: {fileID: 21300000, guid: 16ab2200d2a0fb842bf66623feab30fd, type: 3}
+  _shield5: {fileID: 21300000, guid: cae2ab1ea91bd5345a6f99693c487efe, type: 3}
   _health: 0
   _maxHealth: 4
   _player: {fileID: 1278552289654396848}
