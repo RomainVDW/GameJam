@@ -8,4 +8,11 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+    private void Start()
+    {
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
