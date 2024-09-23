@@ -62,12 +62,12 @@ public class SheildHeal : MonoBehaviour, IHealth
 
     public void UpdateStatus()
     {
-        if (_health <= -1)
+        if (_health <= 0)
         {
-            _shieldImage.sprite = _shield0;
             OnDeath();
         }
-        else if (_health > 0)
+        else Active = true;
+        if (_health >= 0)
         {
             switch (_health)
             {
@@ -86,8 +86,10 @@ public class SheildHeal : MonoBehaviour, IHealth
                 case 1f:
                     _shieldImage.sprite = _shield1;
                     break;
+                case 0f:
+                    _shieldImage.sprite = _shield0;
+                    break;
             }
-            Active = true;
         }
     }
 

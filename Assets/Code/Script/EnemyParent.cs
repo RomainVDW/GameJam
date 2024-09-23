@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -150,9 +151,10 @@ public class EnemyParent : MonoBehaviour, IHealth
     {
         if (!_canTakeDamage) return;
         _canTakeDamage = false;
-        EnemySpawnManager.s_instance.DecreaseAliveEnemiesCount();
+        //EnemySpawnManager.s_instance.DecreaseAliveEnemiesCount();
         Destroy(GetComponent<Laser>());
         Destroy(GetComponent<RangedEnemy>());
+        Debug.Log("I Was Here");
         GetComponent<Animator>().SetTrigger("Dead");
     }
 }
