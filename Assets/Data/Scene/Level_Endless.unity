@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 17841208}
   - component: {fileID: 17841210}
   - component: {fileID: 17841209}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3085,6 +3085,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4435,6 +4440,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4526,6 +4536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7410,6 +7425,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7581,7 +7601,7 @@ GameObject:
   - component: {fileID: 208878925}
   - component: {fileID: 208878927}
   - component: {fileID: 208878926}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11389,6 +11409,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14060,7 +14085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 362872368}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15116,6 +15141,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24080,7 +24110,7 @@ GameObject:
   - component: {fileID: 581583838}
   - component: {fileID: 581583837}
   - component: {fileID: 581583836}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33858,6 +33888,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34212,6 +34247,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35780,6 +35820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38682,7 +38727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 910841024}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39859,6 +39904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41219,7 +41269,7 @@ GameObject:
   - component: {fileID: 975018219}
   - component: {fileID: 975018221}
   - component: {fileID: 975018220}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41579,6 +41629,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41871,7 +41926,7 @@ GameObject:
   - component: {fileID: 983811512}
   - component: {fileID: 983811514}
   - component: {fileID: 983811513}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42484,6 +42539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -44234,6 +44294,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -45103,6 +45168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -46112,7 +46182,7 @@ GameObject:
   - component: {fileID: 1085780536}
   - component: {fileID: 1085780538}
   - component: {fileID: 1085780537}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51880,7 +51950,7 @@ GameObject:
   - component: {fileID: 1222865406}
   - component: {fileID: 1222865405}
   - component: {fileID: 1222865404}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53953,6 +54023,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -54254,6 +54329,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -55898,6 +55978,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -56927,7 +57012,7 @@ GameObject:
   - component: {fileID: 1306835285}
   - component: {fileID: 1306835287}
   - component: {fileID: 1306835286}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58001,6 +58086,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -59907,6 +59997,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60849,7 +60944,7 @@ GameObject:
   - component: {fileID: 1409164069}
   - component: {fileID: 1409164071}
   - component: {fileID: 1409164070}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63435,7 +63530,7 @@ GameObject:
   - component: {fileID: 1474167427}
   - component: {fileID: 1474167429}
   - component: {fileID: 1474167428}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65261,6 +65356,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -66920,6 +67020,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -68315,7 +68420,7 @@ GameObject:
   - component: {fileID: 1608994914}
   - component: {fileID: 1608994916}
   - component: {fileID: 1608994915}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79579,6 +79684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -81327,7 +81437,7 @@ GameObject:
   - component: {fileID: 1902589534}
   - component: {fileID: 1902589536}
   - component: {fileID: 1902589535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84294,6 +84404,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -84808,7 +84923,7 @@ GameObject:
   - component: {fileID: 1972028648}
   - component: {fileID: 1972028650}
   - component: {fileID: 1972028649}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spot Light (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86668,6 +86783,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -87404,6 +87524,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -90288,6 +90413,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -90688,6 +90818,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -91112,6 +91247,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pillar (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0ca62ec1c7c6b524dad60163230c5770,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
