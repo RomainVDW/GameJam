@@ -43,7 +43,7 @@ public class EnemySpawnManager : MonoBehaviour
             Transform spawnPoint = _spawnPointList[Random.Range(0, _spawnPointList.Count - 1)];
             Vector2 randomSpawnPosition = Random.insideUnitCircle * spawnPoint.GetComponent<SpawnPoint>()._spawnPointRadius;
             Vector3 spawnPosition = new(spawnPoint.position.x + randomSpawnPosition.x, spawnPoint.position.y + _heightSpawnOffset, spawnPoint.position.z + randomSpawnPosition.y);
-            Instantiate(_enemyPrefab[Random.Range(0, _enemyPrefab.Count - 1)], spawnPosition, spawnPoint.rotation);
+            Instantiate(_enemyPrefab[Random.Range(0, _enemyPrefab.Count)], spawnPosition, spawnPoint.rotation);
             _aliveEnemiesCount++;
             yield return new WaitForSeconds(_enemySpawnDelay);
         }
