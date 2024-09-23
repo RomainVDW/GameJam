@@ -13,8 +13,15 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private int _difficulty = 1;
     private int _aliveEnemiesCount = 0;
     private int _killedEnemiesCount = 0;
+    public int KilledEnemiesCount
+    {
+        get { return _killedEnemiesCount; }
+    }
     private float _heightSpawnOffset = 1;
     private bool _spawning = false;
+    [SerializeField] private int _lastWave = 2;
+    private int _currentWave = 0;
+    private bool _endless = false;
 
     public static EnemySpawnManager s_instance
     {
@@ -40,6 +47,16 @@ public class EnemySpawnManager : MonoBehaviour
             _aliveEnemiesCount++;
             yield return new WaitForSeconds(_enemySpawnDelay);
         }
+        _currentWave++;
+        VictoryCheck();
+    }
+
+    private void VictoryCheck()
+    {
+        if (_currentWave>=_lastWave&&!_endless)
+        {
+            GameManager.s_Instance.Victory();
+        }
     }
 
     public void RemoveSpawnPoint(Transform spawnPoint)
@@ -63,6 +80,10 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnEnemies());
+        if (_lastWave == 0)
+        {
+            _endless = true;
+        }
     }
     private void OnDrawGizmos()
     {

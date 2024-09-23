@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
     }
     [SerializeField] private float _laserDamagingPhaseTimerMax = 30;
     [SerializeField] private float _laserHealingPhaseTimerMax = 10;
+    private event Action _victory;
+
     public bool BouclierIsActivated { get; set; }
 
     public static GameManager s_Instance
@@ -80,5 +83,10 @@ public class GameManager : MonoBehaviour
     {
         _gameOver.Invoke();
        Time.timeScale = 0;
+    }
+    public void Victory()
+    {
+        _victory.Invoke();
+        Time.timeScale = 0;
     }
 }
