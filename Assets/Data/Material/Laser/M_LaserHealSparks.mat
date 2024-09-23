@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_LaserSparks
+  m_Name: M_LaserHealSparks
   m_Shader: {fileID: 4800000, guid: 618d725ac68592f46ba34426f2a1f178, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -51,5 +51,5 @@ Material:
     - _ReceiveShadows: 1
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SparksColor: {r: 5.3403144, g: 0.6989941, b: 0.79767203, a: 0}
+    - _SparksColor: {r: 1.0529546, g: 5.3403144, b: 0.67103434, a: 0}
   m_BuildTextureStacks: []
