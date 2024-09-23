@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class SheildHeal : MonoBehaviour, IHealth
     [SerializeField] private float _maxHealth;
     
     [SerializeField] private PlayerHealth _player;
-
+    [SerializeField] private Material _shieldMaterial;
 
     private bool _canTakeDamage;
     public bool Active { get; set; } 
@@ -26,9 +27,12 @@ public class SheildHeal : MonoBehaviour, IHealth
 
     private void Start()
     {
+        
         _canTakeDamage = true;
         Active = true;
         _health = _maxHealth;
+        
+        
     }
 
     public void TakeDamage(float damage)
@@ -40,6 +44,7 @@ public class SheildHeal : MonoBehaviour, IHealth
         }
         if (!_canTakeDamage ) return;
         _health -= damage;
+     
         StartCoroutine(TemporaryInvincible());
         UpdateStatus();
     }
@@ -57,7 +62,7 @@ public class SheildHeal : MonoBehaviour, IHealth
 
     public void UpdateStatus()
     {
-        if (_health <= 0)
+        if (_health <= -1)
         {
             _shieldImage.sprite = _shield0;
             OnDeath();
@@ -86,9 +91,11 @@ public class SheildHeal : MonoBehaviour, IHealth
         }
     }
 
- 
 
-
+    private void Update()
+    {
+        _shieldMaterial.SetFloat("_NormalizedHealth", _health / _maxHealth);
+    }
 
     public IEnumerator TemporaryInvincible()
     {

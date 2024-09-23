@@ -77,7 +77,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     public void OnDeath()
     {
-        print("Dead");
+        GetComponent<Animator>().SetTrigger("IsDead");
         GameManager.s_Instance.GameOver();
     }
 }
