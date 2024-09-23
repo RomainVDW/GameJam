@@ -76,7 +76,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blur: 0.001
-    - _Disolve_Border_Size: 0.21
+    - _Disolve_Border_Size: 0.13
     - _Disolving: 0
     - _Disolving_Offest: 0.91
     - _Emissive_Gradient_Power: 0.5
@@ -84,13 +84,13 @@ Material:
     - _Emissive_Power: 2.6
     - _Float: 0.94
     - _Float_1: 1
-    - _Intensity: 0.32
+    - _Intensity: 2.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 0.39
     m_Colors:
-    - _Border_Color_a: {r: 0, g: 2.1922078, b: 17.148373, a: 0}
-    - _Border_Color_b: {r: 14.883495, g: 0, b: 1.5806588, a: 0}
+    - _Border_Color_a: {r: 22.894424, g: 22.894424, b: 22.894424, a: 0}
+    - _Border_Color_b: {r: 21.773687, g: 21.773687, b: 21.773687, a: 0}
     - _Color: {r: 89.454056, g: 0, b: 11.438839, a: 0}
     - _Color_1: {r: 0, g: 2.8195605, b: 7.3772097, a: 0}
     - _Emissive_Fade: {r: -4.04, g: 0.43, b: 0, a: 0}
