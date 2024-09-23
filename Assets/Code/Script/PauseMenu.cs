@@ -17,14 +17,11 @@ public class PauseMenu : MonoBehaviour
     public void Retry() 
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene("Level1");
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
-    public void Quit()
+    public void MainMenu()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        Application.Quit();
-        #endif
+        SceneManager.LoadScene("Main_Menu");
     }
 }

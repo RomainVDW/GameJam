@@ -5,6 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Data/Scene/Main_Menu.unity
+    guid: fa5c04b151d7a41409d35fdb5716a8ff
+  - enabled: 1
+    path: Assets/Data/Scene/Level_Endless.unity
+    guid: f836a9363cc16834fbb46b4780a5ef89
+  - enabled: 1
+    path: Assets/Data/Scene/Level1.unity
+    guid: e0186b93c024d944580b80b9ee873f2f
+  - enabled: 1
+    path: Assets/Data/Scene/Level2.unity
+    guid: 9b88e684991dd16479388f928de5cea8
+  - enabled: 1
+    path: Assets/Data/Scene/Level3.unity
+    guid: 800be9294f0a49d45b9202d7d2cf04a4
+  - enabled: 1
+    path: Assets/Data/Scene/Level4.unity
+    guid: 4a06172092a45a74289662bd74313b48
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
@@ -12,14 +30,8 @@ EditorBuildSettings:
     path: Assets/Data/Scene/BaseScene.unity
     guid: 63ca6f29c4b5ae045a8393a063457444
   - enabled: 0
-    path: Assets/Data/Scene/Level1.unity
-    guid: e0186b93c024d944580b80b9ee873f2f
-  - enabled: 0
     path: Assets/Data/Scene/Justin_Scene3.unity
     guid: 1da6b76f3042c034db685969796cd919
-  - enabled: 1
-    path: Assets/Data/Scene/Level_Endless.unity
-    guid: f836a9363cc16834fbb46b4780a5ef89
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7c66bb95d0cb0b046aed15d6763f66f6,
       type: 2}
