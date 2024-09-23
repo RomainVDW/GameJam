@@ -28,7 +28,7 @@ public class LaserFire : LaserCompenent
             if (sheildHeal.Active && CanReflect)
             {
                 CanReflect = false;
-                StartCoroutine(Camera.main.GetComponent<CameraController>().Screenshake(0.5f, 0.5f));
+                StartCoroutine(Camera.main.GetComponent<CameraController>().Screenshake(0.5f, 0.25f));
                 sheildHeal.TakeDamage(LaserDamage);
                 
                 Vector3 reflect = Vector3.Reflect(InitialDirection, LastActorHit.forward);
