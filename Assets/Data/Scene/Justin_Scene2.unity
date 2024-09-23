@@ -14193,6 +14193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05025f86baeb23f4496d1e8ace6bef4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _laserStateImage: {fileID: 0}
+  _laserStateDamaging: {fileID: 0}
+  _laserStateHealing: {fileID: 0}
   _laserDamagingPhaseTimerMax: 30
   _laserHealingPhaseTimerMax: 10
 --- !u!4 &917127012
@@ -27930,17 +27933,17 @@ PrefabInstance:
     - target: {fileID: 6721366460133036866, guid: e2307611130c3d14d9768fb8efa4e0c2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.06
+      value: 2.266
       objectReference: {fileID: 0}
     - target: {fileID: 6721366460133036866, guid: e2307611130c3d14d9768fb8efa4e0c2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721366460133036866, guid: e2307611130c3d14d9768fb8efa4e0c2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.754215
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721366460133036866, guid: e2307611130c3d14d9768fb8efa4e0c2,
         type: 3}
