@@ -52,10 +52,6 @@ public class PlayerMoves : MonoBehaviour
         Vector2 rotateInput = _rotate.ReadValue<Vector2>();
         Vector3 playerRotation = new (rotateInput.x,0, rotateInput.y);
         transform.forward = Vector3.Slerp(transform.forward, playerRotation, _rotationSmoothing);
-
-        Vector2 playerMouseInput = _rotateMouse.ReadValue<Vector2>();
-        Vector3 playerMouseRotation = new (playerMouseInput.x,0,playerMouseInput.y);
-        transform.forward = Vector3.Slerp(transform.forward, playerMouseRotation, _rotationSmoothing);
     }
 
     private void Aim()
