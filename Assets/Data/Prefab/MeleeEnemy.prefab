@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
-  _fireRate: 0.33
+  _fireRate: 0.66
   _sickelAnimator: {fileID: 2091463395555845988}
   _slashAnimator: {fileID: 4659911136806176694}
 --- !u!195 &1714991619567007265
@@ -195,7 +195,7 @@ PrefabInstance:
     - target: {fileID: 7563012791790690121, guid: c98012436663f864cb5ac402bc411a35,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.65
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7563012791790690121, guid: c98012436663f864cb5ac402bc411a35,
         type: 3}
@@ -205,7 +205,7 @@ PrefabInstance:
     - target: {fileID: 7563012791790690121, guid: c98012436663f864cb5ac402bc411a35,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 7563012791790690121, guid: c98012436663f864cb5ac402bc411a35,
         type: 3}
